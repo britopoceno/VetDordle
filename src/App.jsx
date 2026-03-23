@@ -302,7 +302,6 @@ export default function VetDordle() {
                         onMouseEnter={e => e.target.style.background = "rgba(34,197,94,0.1)"}
                         onMouseLeave={e => e.target.style.background = "transparent"}>
                         <span>{s.name}</span>
-                        <span style={S.sugM}>{s.species} · {s.system}</span>
                       </div>
                     ))}
                   </div>
