@@ -1,125 +1,103 @@
 import { useState, useEffect, useRef } from "react";
 
-const CASES = [
-  {
-    id: 1,
-    diagnosis: "Parvovirose Canina",
-    aliases: ["parvovirose", "parvo", "parvovirus", "parvovirose canina", "parvovírus canino"],
-    clues: [
-      { type: "Sinalamento", icon: "🐾", text: "Canino, SRD, macho, 3 meses de idade, sem histórico vacinal completo." },
-      { type: "Queixa Principal", icon: "💬", text: "Tutor relata que o animal parou de comer há 2 dias, está muito prostrado e começou a apresentar vômitos frequentes." },
-      { type: "Anamnese", icon: "📋", text: "Animal adquirido há 15 dias em uma feira de adoção. Convive com outros cães no domicílio. Não recebeu nenhuma dose de vacina polivalente. Alimentação com ração seca para filhotes." },
-      { type: "Exame Físico", icon: "🩺", text: "Temperatura retal 40,2°C. Mucosas hipocoradas e secas. TPC > 3 segundos. Desidratação estimada em 8%. Dor à palpação abdominal. Presença de diarreia sanguinolenta fétida na região perianal." },
-      { type: "Hemograma", icon: "🔬", text: "Leucopenia acentuada (1.800/µL) com linfopenia absoluta. Hematócrito 48%. Trombocitopenia leve. Proteínas totais reduzidas." },
-      { type: "Exame Complementar", icon: "🧪", text: "Teste imunocromatográfico rápido (snap test) de fezes: POSITIVO para antígeno viral específico. Ultrassonografia abdominal revelou alças intestinais com espessamento de parede e hipermotilidade." }
-    ]
-  },
-  {
-    id: 2,
-    diagnosis: "Cinomose",
-    aliases: ["cinomose", "cinomose canina", "distemper", "vírus da cinomose"],
-    clues: [
-      { type: "Sinalamento", icon: "🐾", text: "Canino, Poodle, fêmea, 8 meses, protocolo vacinal incompleto (apenas uma dose de V8)." },
-      { type: "Queixa Principal", icon: "💬", text: "Tutor relata que o animal apresenta secreção nasal e ocular há 5 dias, além de tosse e apatia progressiva." },
-      { type: "Anamnese", icon: "📋", text: "O animal teve contato com cães de rua durante passeio sem supervisão há aproximadamente duas semanas. Inicialmente apresentou espirros e secreção serosa, que evoluiu para mucopurulenta. Apetite reduzido nos últimos 3 dias." },
-      { type: "Exame Físico", icon: "🩺", text: "Temperatura retal 39,8°C. Secreção ocular e nasal mucopurulenta bilateral. Hiperqueratose de coxins plantares. Auscultação pulmonar com crepitação em campos cranioventrais. Pústulas abdominais." },
-      { type: "Hemograma", icon: "🔬", text: "Linfopenia absoluta (900/µL). Anemia normocítica normocrômica leve. Presença de corpúsculos de inclusão de Lentz em linfócitos no esfregaço sanguíneo." },
-      { type: "Evolução Neurológica", icon: "🧠", text: "Após 10 dias de internação, o animal passou a apresentar mioclonias em membros pélvicos, ataxia cerebelar e episódios convulsivos focais. Reflexo pupilar lentificado bilateralmente." }
-    ]
-  },
-  {
-    id: 3,
-    diagnosis: "Torção Gástrica",
-    aliases: ["torção gástrica", "dilatação vólvulo gástrica", "dvg", "dilatação gástrica", "vólvulo gástrico", "síndrome dilatação vólvulo gástrica", "torção de estômago"],
-    clues: [
-      { type: "Sinalamento", icon: "🐾", text: "Canino, Pastor Alemão, macho, 7 anos de idade, porte grande (38 kg)." },
-      { type: "Queixa Principal", icon: "💬", text: "Tutor relata que o animal apresentou distensão abdominal súbita após a refeição noturna, com tentativas improdutivas de vômito e inquietação extrema." },
-      { type: "Anamnese", icon: "📋", text: "O animal recebe uma única refeição volumosa ao dia e tem o hábito de se exercitar logo após comer. Episódio semelhante nunca havia ocorrido antes. Tutor relata que o animal ficou sialorreico e tentou vomitar repetidamente sem sucesso nas últimas 2 horas." },
-      { type: "Exame Físico", icon: "🩺", text: "Abdômen cranial marcadamente distendido e timpânico à percussão. FC 160 bpm com pulso femoral fraco e filiforme. TPC > 4 segundos. Mucosas pálidas e acinzentadas. Tentativas de eructação sem sucesso. Passagem de sonda orogástrica encontrou resistência." },
-      { type: "Exames Laboratoriais", icon: "🔬", text: "Lactato sérico 7,2 mmol/L (elevado). Gasometria com acidose metabólica. Hemograma com hemoconcentração (Ht 58%). Hipocalemia." },
-      { type: "Imagem", icon: "📸", text: "Radiografia abdominal lateral direita revelou estômago marcadamente dilatado com gás, apresentando sinal de compartimentalização (double bubble sign) e deslocamento pilórico dorsocranial, compatível com vólvulo gástrico." }
-    ]
-  },
-  {
-    id: 4,
-    diagnosis: "Erliquiose Canina",
-    aliases: ["erliquiose", "erliquiose canina", "erlichiose", "ehrlichiose", "ehrlichia", "doença do carrapato", "pancitopenia tropical canina"],
-    clues: [
-      { type: "Sinalamento", icon: "🐾", text: "Canino, Labrador Retriever, macho, 4 anos, vacinação em dia. Acesso a área rural." },
-      { type: "Queixa Principal", icon: "💬", text: "Tutor relata apatia progressiva há 10 dias, perda de apetite e sangramento nasal espontâneo observado pela manhã." },
-      { type: "Anamnese", icon: "📋", text: "Animal com histórico de infestação recorrente por carrapatos, último tratamento ectoparasiticida há 3 meses. Tutor relata presença de petéquias na região abdominal notadas há 3 dias. Sem histórico de trauma recente." },
-      { type: "Exame Físico", icon: "🩺", text: "Temperatura retal 40,5°C. Mucosas hipocoradas com petéquias em mucosa oral e gengival. Esplenomegalia à palpação abdominal. Linfadenomegalia generalizada. Epistaxe unilateral. Presença de carrapatos em região auricular." },
-      { type: "Hemograma", icon: "🔬", text: "Pancitopenia: anemia (Ht 22%), leucopenia (3.200/µL) e trombocitopenia severa (18.000/µL). Presença de mórulas em monócitos no esfregaço sanguíneo." },
-      { type: "Sorologia", icon: "🧪", text: "Teste rápido (snap 4DX) positivo para anticorpos contra Ehrlichia canis. PCR quantitativo confirmatório positivo com alta carga parasitária." }
-    ]
-  },
-  {
-    id: 5,
-    diagnosis: "Lipidose Hepática Felina",
-    aliases: ["lipidose hepática", "lipidose hepática felina", "lipidose", "esteatose hepática felina", "fígado gorduroso felino"],
-    clues: [
-      { type: "Sinalamento", icon: "🐾", text: "Felino, SRD, fêmea castrada, 9 anos, obesa (6,8 kg, escore corporal 9/9)." },
-      { type: "Queixa Principal", icon: "💬", text: "Tutor relata que a gata parou de comer há 5 dias, está vomitando esporadicamente e ficou com a pele e os olhos amarelados." },
-      { type: "Anamnese", icon: "📋", text: "O tutor adotou um novo gato há 3 semanas, desde então a paciente se esconde com frequência e demonstra sinais de estresse. Redução gradual do apetite até anorexia completa. Perda de peso perceptível apesar do histórico de obesidade." },
-      { type: "Exame Físico", icon: "🩺", text: "Icterícia marcante em mucosas, pavilhões auriculares e esclera. Desidratação estimada em 6%. Hepatomegalia com bordas arredondadas à palpação. Sialorreia. Ventroflexão cervical discreta." },
-      { type: "Bioquímica", icon: "🔬", text: "ALT 380 U/L e FA 520 U/L (ambas muito elevadas). Bilirrubina total 8,4 mg/dL. GGT discretamente elevada. Hipocalemia (2,9 mEq/L). Hipoalbuminemia." },
-      { type: "Citologia Hepática", icon: "🧪", text: "Citologia aspirativa hepática guiada por ultrassom revelou hepatócitos marcadamente vacuolizados com acúmulo lipídico intracitoplasmático difuso, compatível com o diagnóstico de infiltração gordurosa hepática severa." }
-    ]
-  },
-  {
-    id: 6,
-    diagnosis: "Laminite Equina",
-    aliases: ["laminite", "laminite equina", "infosura", "aguamento"],
-    clues: [
-      { type: "Sinalamento", icon: "🐾", text: "Equino, Crioulo, macho castrado, 12 anos, utilizado em provas de laço." },
-      { type: "Queixa Principal", icon: "💬", text: "Proprietário relata que o animal está relutante em se movimentar e adota postura anormal com os membros torácicos projetados para frente desde ontem." },
-      { type: "Anamnese", icon: "📋", text: "O animal teve acesso acidental ao depósito de ração há 48 horas, consumindo grande quantidade de concentrado à base de milho. Desde então, apresentou redução do apetite e relutância crescente ao movimento. Sem alterações nos membros pélvicos inicialmente." },
-      { type: "Exame Físico", icon: "🩺", text: "FC 56 bpm. Postura característica com membros torácicos estendidos cranialmente e membros pélvicos posicionados sob o corpo. Pulso digital aumentado e palpável bilateralmente nos membros torácicos. Sensibilidade intensa à pinça de casco na região da pinça. Grau de claudicação Obel III." },
-      { type: "Exames Laboratoriais", icon: "🔬", text: "Hemograma sem alterações significativas. Glicemia 142 mg/dL (elevada). Insulina sérica aumentada. Triglicerídeos elevados. Cortisol dentro dos limites normais." },
-      { type: "Imagem", icon: "📸", text: "Radiografia lateromedial dos dígitos torácicos revelou rotação distal da falange distal (P3) com aumento da distância entre a parede dorsal do casco e a superfície parietal de P3, confirmando deslocamento da terceira falange." }
-    ]
-  },
-  {
-    id: 7,
-    diagnosis: "Obstrução Uretral Felina",
-    aliases: ["obstrução uretral", "obstrução uretral felina", "doença do trato urinário inferior dos felinos", "dtuif", "flutd", "bloqueio uretral", "tampão uretral"],
-    clues: [
-      { type: "Sinalamento", icon: "🐾", text: "Felino, Persa, macho castrado, 5 anos, alimentação exclusiva com ração seca, estilo de vida indoor." },
-      { type: "Queixa Principal", icon: "💬", text: "Tutor relata que o gato está entrando e saindo da caixa de areia repetidamente, vocalizando ao tentar urinar, e não produziu urina há aproximadamente 18 horas." },
-      { type: "Anamnese", icon: "📋", text: "Animal sedentário com baixa ingestão hídrica. Tutor relata episódio semelhante há 6 meses que resolveu espontaneamente. Nos últimos 2 dias, o gato lambeu excessivamente a região perineal e apresentou hematúria. Mudança recente no domicílio (reforma)." },
-      { type: "Exame Físico", icon: "🩺", text: "Bexiga firme, distendida e dolorosa à palpação, do tamanho de uma laranja. Pênis com discreta protrusão e presença de material cristaloide na extremidade. Mucosas pálidas. Bradicardia (FC 100 bpm). Hipotermia (36,8°C). Desidratação moderada." },
-      { type: "Exames Laboratoriais", icon: "🔬", text: "Azotemia severa: ureia 320 mg/dL e creatinina 14,2 mg/dL. Hipercalemia grave (8,9 mEq/L). Acidose metabólica. ECG com ondas T apiculadas e bradicardia. Fósforo elevado." },
-      { type: "Urinálise", icon: "🧪", text: "Após desobstrução por cateterismo uretral, urina turva e avermelhada. Densidade 1.065. pH 6,8. Presença abundante de cristais de estruvita (fosfato de amônio magnesiano). Hematúria e piúria. Cultura bacteriana negativa." }
-    ]
-  },
-  {
-    id: 8,
-    diagnosis: "Babesiose Bovina",
-    aliases: ["babesiose", "babesiose bovina", "babesia", "tristeza parasitária bovina", "tristeza parasitária", "piroplasmose", "TPB"],
-    clues: [
-      { type: "Sinalamento", icon: "🐾", text: "Bovino, Holandês, fêmea, 3 anos, em lactação, recém-introduzida na propriedade há 20 dias (procedente de região livre de carrapatos)." },
-      { type: "Queixa Principal", icon: "💬", text: "Produtor relata que a vaca parou de comer, apresentou queda abrupta na produção leiteira e está com urina escurecida." },
-      { type: "Anamnese", icon: "📋", text: "Animal adquirido de uma fazenda no sul do país com controle rigoroso de ectoparasitas. Após a chegada à nova propriedade em área endêmica, foi observada infestação massiva por carrapatos Rhipicephalus microplus. Nenhum protocolo de premunição foi realizado antes do transporte." },
-      { type: "Exame Físico", icon: "🩺", text: "Temperatura retal 41,3°C. Mucosas ictéricas e hipocoradas. Taquicardia (100 bpm). Taquipneia (40 mpm). Hemoglobinúria evidente (urina cor de coca-cola). Infestação massiva por carrapatos. Rúmen hipomotílico." },
-      { type: "Hemograma", icon: "🔬", text: "Anemia hemolítica severa (Ht 14%). Hemoglobina 4,2 g/dL. Reticulocitose. Bilirrubina indireta marcadamente elevada. Esfregaço sanguíneo com hemácias parasitadas por organismos piriformes intra-eritrocitários." },
-      { type: "Confirmação", icon: "🧪", text: "Esfregaço de sangue periférico (ponta de orelha) corado com Giemsa revelou inclusões intraeritrocitárias piriformes pareadas em ângulo agudo, compatíveis com Babesia bovis. Parasitemia estimada em 2,5%." }
-    ]
-  }
+/* ─── DIAGNOSIS DATABASE ─── */
+const ALL_DIAGNOSES = [
+  { name: "Parvovirose Canina", species: "canino", system: "gastrointestinal", etiology: "infecciosa", course: "agudo", age: "jovem" },
+  { name: "Cinomose", species: "canino", system: "multissistêmico", etiology: "infecciosa", course: "agudo", age: "jovem" },
+  { name: "Torção Gástrica", species: "canino", system: "gastrointestinal", etiology: "mecânica", course: "agudo", age: "adulto" },
+  { name: "Erliquiose Canina", species: "canino", system: "hematológico", etiology: "infecciosa", course: "agudo", age: "adulto" },
+  { name: "Lipidose Hepática Felina", species: "felino", system: "hepático", etiology: "metabólica", course: "agudo", age: "adulto" },
+  { name: "Laminite Equina", species: "equino", system: "locomotor", etiology: "metabólica", course: "agudo", age: "adulto" },
+  { name: "Obstrução Uretral Felina", species: "felino", system: "urinário", etiology: "mecânica", course: "agudo", age: "adulto" },
+  { name: "Babesiose Bovina", species: "bovino", system: "hematológico", etiology: "infecciosa", course: "agudo", age: "adulto" },
+  { name: "Piometra", species: "canino", system: "reprodutor", etiology: "infecciosa", course: "agudo", age: "adulto" },
+  { name: "Doença Renal Crônica", species: "felino", system: "urinário", etiology: "degenerativa", course: "crônico", age: "idoso" },
+  { name: "Diabetes Mellitus Canina", species: "canino", system: "endócrino", etiology: "metabólica", course: "crônico", age: "adulto" },
+  { name: "Hipertireoidismo Felino", species: "felino", system: "endócrino", etiology: "neoplásica", course: "crônico", age: "idoso" },
+  { name: "Leishmaniose Visceral Canina", species: "canino", system: "multissistêmico", etiology: "infecciosa", course: "crônico", age: "adulto" },
+  { name: "Hiperadrenocorticismo Canino", species: "canino", system: "endócrino", etiology: "neoplásica", course: "crônico", age: "adulto" },
+  { name: "Complexo Respiratório Felino", species: "felino", system: "respiratório", etiology: "infecciosa", course: "agudo", age: "jovem" },
+  { name: "Cólica Equina", species: "equino", system: "gastrointestinal", etiology: "mecânica", course: "agudo", age: "adulto" },
+  { name: "Mastite Bovina", species: "bovino", system: "reprodutor", etiology: "infecciosa", course: "agudo", age: "adulto" },
+  { name: "Sarna Demodécica", species: "canino", system: "tegumentar", etiology: "parasitária", course: "crônico", age: "jovem" },
+  { name: "Cardiomiopatia Dilatada", species: "canino", system: "cardiovascular", etiology: "degenerativa", course: "crônico", age: "adulto" },
+  { name: "Cardiomiopatia Hipertrófica Felina", species: "felino", system: "cardiovascular", etiology: "degenerativa", course: "crônico", age: "adulto" },
+  { name: "Displasia Coxofemoral", species: "canino", system: "locomotor", etiology: "degenerativa", course: "crônico", age: "jovem" },
+  { name: "Cetose Bovina", species: "bovino", system: "metabólico", etiology: "metabólica", course: "agudo", age: "adulto" },
+  { name: "Corpo Estranho Gastrointestinal", species: "canino", system: "gastrointestinal", etiology: "mecânica", course: "agudo", age: "jovem" },
+  { name: "Pancreatite Canina", species: "canino", system: "gastrointestinal", etiology: "metabólica", course: "agudo", age: "adulto" },
+  { name: "PIF", species: "felino", system: "multissistêmico", etiology: "infecciosa", course: "crônico", age: "jovem" },
+  { name: "Raiva", species: "canino", system: "neurológico", etiology: "infecciosa", course: "agudo", age: "adulto" },
+  { name: "Tétano Equino", species: "equino", system: "neurológico", etiology: "infecciosa", course: "agudo", age: "adulto" },
+  { name: "Leptospirose Canina", species: "canino", system: "multissistêmico", etiology: "infecciosa", course: "agudo", age: "adulto" },
+  { name: "Otite Externa", species: "canino", system: "tegumentar", etiology: "infecciosa", course: "crônico", age: "adulto" },
+  { name: "Intussuscepção", species: "canino", system: "gastrointestinal", etiology: "mecânica", course: "agudo", age: "jovem" },
 ];
 
-const COMMON_DIAGNOSES = [
-  "Parvovirose Canina", "Cinomose", "Erliquiose Canina", "Babesiose Canina",
-  "Leishmaniose Visceral", "Torção Gástrica", "Piometra", "Pancreatite",
-  "Doença Renal Crônica", "Diabetes Mellitus", "Hiperadrenocorticismo",
-  "Hipotireoidismo", "Hipertireoidismo Felino", "Lipidose Hepática Felina",
-  "Obstrução Uretral Felina", "Complexo Respiratório Felino", "PIF",
-  "FIV", "FeLV", "Laminite Equina", "Cólica Equina", "Tétano",
-  "Raiva", "Leptospirose", "Babesiose Bovina", "Tristeza Parasitária Bovina",
-  "Mastite", "Cetose Bovina", "Brucelose", "Tuberculose Bovina",
-  "Dermatofitose", "Sarna Demodécica", "Sarna Sarcóptica", "Otite Externa",
-  "Displasia Coxofemoral", "Ruptura de Ligamento Cruzado", "Gastroenterite",
-  "Corpo Estranho Gastrointestinal", "Intussuscepção", "Megaesôfago"
+/* ─── CLINICAL CASES ─── */
+const CASES = [
+  {
+    answer: "Parvovirose Canina",
+    vignette: "Canino, SRD, macho, 3 meses, sem vacinação. Há 2 dias com anorexia, prostração intensa e vômitos frequentes. Adquirido em feira de adoção há 15 dias. Ao exame: temperatura 40,2°C, mucosas hipocoradas e secas, TPC > 3s, desidratação 8%, dor abdominal, diarreia sanguinolenta fétida. Hemograma com leucopenia acentuada (1.800/µL), linfopenia absoluta e trombocitopenia leve."
+  },
+  {
+    answer: "Cinomose",
+    vignette: "Canino, Poodle, fêmea, 8 meses, apenas uma dose de V8. Secreção nasal e ocular mucopurulenta bilateral há 5 dias, tosse e apatia progressiva. Contato com cães de rua há duas semanas. Ao exame: hiperqueratose de coxins plantares, crepitação pulmonar cranioventral, pústulas abdominais. Hemograma com linfopenia (900/µL) e corpúsculos de inclusão de Lentz em linfócitos. Evolui com mioclonias e convulsões focais."
+  },
+  {
+    answer: "Torção Gástrica",
+    vignette: "Canino, Pastor Alemão, macho castrado, 7 anos, 38 kg. Distensão abdominal súbita após refeição volumosa única, com tentativas improdutivas de vômito e inquietação extrema há 2 horas. Hábito de exercício pós-prandial. Ao exame: abdômen cranial timpânico, FC 160 bpm, pulso filiforme, TPC > 4s, mucosas acinzentadas. Sonda orogástrica com resistência à passagem. Lactato 7,2 mmol/L. Radiografia com sinal de double bubble e deslocamento pilórico dorsocranial."
+  },
+  {
+    answer: "Erliquiose Canina",
+    vignette: "Canino, Labrador, macho, 4 anos, acesso a área rural. Apatia progressiva há 10 dias com epistaxe espontânea. Infestação recorrente por carrapatos, último ectoparasiticida há 3 meses. Ao exame: temperatura 40,5°C, petéquias em mucosa oral, esplenomegalia, linfadenomegalia generalizada, carrapatos em região auricular. Hemograma com pancitopenia (Ht 22%, leucócitos 3.200/µL, plaquetas 18.000/µL) e mórulas em monócitos."
+  },
+  {
+    answer: "Lipidose Hepática Felina",
+    vignette: "Felino, SRD, fêmea castrada, 9 anos, obesa (escore 9/9). Anorexia há 5 dias com vômitos esporádicos e icterícia. Estresse por introdução de novo gato há 3 semanas. Ao exame: icterícia marcante, desidratação 6%, hepatomegalia com bordas arredondadas, ventroflexão cervical. Bioquímica com ALT 380 U/L, FA 520 U/L, bilirrubina total 8,4 mg/dL, hipocalemia (2,9 mEq/L). Citologia hepática com hepatócitos vacuolizados por acúmulo lipídico difuso."
+  },
+  {
+    answer: "Laminite Equina",
+    vignette: "Equino, Crioulo, macho castrado, 12 anos. Relutância ao movimento e postura com membros torácicos projetados cranialmente desde ontem. Acesso acidental a depósito de concentrado há 48 horas com ingestão de grande quantidade de milho. Ao exame: pulso digital aumentado bilateralmente, sensibilidade intensa à pinça de casco na região da pinça, claudicação Obel III. Glicemia 142 mg/dL, insulina elevada. Radiografia com rotação distal de P3."
+  },
+  {
+    answer: "Obstrução Uretral Felina",
+    vignette: "Felino, Persa, macho castrado, 5 anos, indoor, ração seca exclusiva. Idas frequentes à caixa de areia com vocalização, sem produção de urina há 18 horas. Episódio semelhante autolimitante há 6 meses. Lambedura perineal excessiva e hematúria recente. Reforma no domicílio. Ao exame: bexiga firme e distendida, bradicardia (100 bpm), hipotermia (36,8°C). Ureia 320 mg/dL, creatinina 14,2 mg/dL, hipercalemia 8,9 mEq/L, ECG com ondas T apiculadas."
+  },
+  {
+    answer: "Babesiose Bovina",
+    vignette: "Bovino, Holandês, fêmea, 3 anos, em lactação, introduzida há 20 dias procedente de região sem carrapatos. Anorexia, queda na produção leiteira e hemoglobinúria. Infestação massiva por Rhipicephalus microplus sem premunição prévia. Ao exame: temperatura 41,3°C, mucosas ictéricas e hipocoradas, taquicardia, hemoglobinúria (urina cor de coca-cola). Hemograma com Ht 14%, reticulocitose, bilirrubina indireta elevada. Esfregaço com inclusões piriformes pareadas intra-eritrocitárias."
+  },
 ];
+
+/* ─── HELPERS ─── */
+const CATEGORIES = [
+  { key: "species", label: "Espécie", icon: "🐾" },
+  { key: "system", label: "Sistema", icon: "🫀" },
+  { key: "etiology", label: "Etiologia", icon: "🦠" },
+  { key: "course", label: "Curso", icon: "⏱" },
+  { key: "age", label: "Faixa Etária", icon: "📅" },
+];
+
+function getDiagData(name) {
+  return ALL_DIAGNOSES.find(d => d.name === name);
+}
+
+function compareDiag(guessName, answerName) {
+  const g = getDiagData(guessName);
+  const a = getDiagData(answerName);
+  if (!g || !a) return null;
+  return CATEGORIES.map(cat => ({
+    ...cat,
+    guessVal: g[cat.key],
+    answerVal: a[cat.key],
+    match: g[cat.key] === a[cat.key],
+  }));
+}
+
+function normalize(str) {
+  return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+}
 
 function shuffleArray(arr) {
   const a = [...arr];
@@ -130,492 +108,322 @@ function shuffleArray(arr) {
   return a;
 }
 
+const MAX_ATTEMPTS = 6;
+
+/* ─── COMPONENT ─── */
 export default function VetDordle() {
-  const [gameState, setGameState] = useState("menu");
+  const [screen, setScreen] = useState("menu");
   const [cases, setCases] = useState([]);
-  const [caseIndex, setCaseIndex] = useState(0);
-  const [revealedClues, setRevealedClues] = useState(1);
+  const [caseIdx, setCaseIdx] = useState(0);
   const [guess, setGuess] = useState("");
   const [attempts, setAttempts] = useState([]);
-  const [score, setScore] = useState(0);
-  const [totalCases, setTotalCases] = useState(0);
-  const [showAnswer, setShowAnswer] = useState(false);
   const [solved, setSolved] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [score, setScore] = useState(0);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [animatingClue, setAnimatingClue] = useState(-1);
+  const [animRow, setAnimRow] = useState(-1);
   const inputRef = useRef(null);
-  const suggestionsRef = useRef(null);
+  const sugRef = useRef(null);
 
-  const currentCase = cases[caseIndex];
-  const maxClues = currentCase ? currentCase.clues.length : 0;
+  const currentCase = cases[caseIdx];
+  const answerData = currentCase ? getDiagData(currentCase.answer) : null;
 
   useEffect(() => {
-    function handleClick(e) {
-      if (suggestionsRef.current && !suggestionsRef.current.contains(e.target)) {
-        setShowSuggestions(false);
-      }
+    function onClick(e) {
+      if (sugRef.current && !sugRef.current.contains(e.target)) setShowSuggestions(false);
     }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
   }, []);
 
   function startGame() {
-    const shuffled = shuffleArray(CASES);
-    setCases(shuffled);
-    setCaseIndex(0);
-    setRevealedClues(1);
-    setGuess("");
+    setCases(shuffleArray(CASES));
+    setCaseIdx(0);
     setAttempts([]);
-    setScore(0);
-    setTotalCases(0);
-    setShowAnswer(false);
     setSolved(false);
-    setGameState("playing");
-  }
-
-  function revealNext() {
-    if (revealedClues < maxClues) {
-      const next = revealedClues + 1;
-      setRevealedClues(next);
-      setAnimatingClue(next - 1);
-      setTimeout(() => setAnimatingClue(-1), 500);
-    }
-  }
-
-  function checkGuess() {
-    if (!guess.trim()) return;
-    const g = guess.trim().toLowerCase();
-    const isCorrect = currentCase.aliases.some(a => a.toLowerCase() === g) ||
-      currentCase.diagnosis.toLowerCase() === g;
-    
-    const newAttempt = { text: guess.trim(), correct: isCorrect };
-    setAttempts(prev => [...prev, newAttempt]);
+    setFailed(false);
+    setScore(0);
     setGuess("");
+    setScreen("playing");
+  }
 
+  function submitGuess() {
+    const trimmed = guess.trim();
+    if (!trimmed || solved || failed) return;
+    const matched = ALL_DIAGNOSES.find(d => normalize(d.name) === normalize(trimmed));
+    if (!matched) return;
+    const isCorrect = matched.name === currentCase.answer;
+    const comparison = compareDiag(matched.name, currentCase.answer);
+    const newAttempts = [...attempts, { name: matched.name, correct: isCorrect, comparison }];
+    setAttempts(newAttempts);
+    setGuess("");
+    setAnimRow(newAttempts.length - 1);
+    setTimeout(() => setAnimRow(-1), 800);
     if (isCorrect) {
-      const points = Math.max(maxClues - revealedClues + 1, 1);
-      setScore(prev => prev + points);
       setSolved(true);
-    } else if (attempts.length + 1 >= 3) {
-      setShowAnswer(true);
+      setScore(prev => prev + Math.max(MAX_ATTEMPTS - newAttempts.length + 1, 1));
+    } else if (newAttempts.length >= MAX_ATTEMPTS) {
+      setFailed(true);
     }
   }
 
   function nextCase() {
-    const nextIdx = caseIndex + 1;
-    setTotalCases(prev => prev + 1);
-    if (nextIdx < cases.length) {
-      setCaseIndex(nextIdx);
-      setRevealedClues(1);
-      setGuess("");
+    if (caseIdx + 1 < cases.length) {
+      setCaseIdx(caseIdx + 1);
       setAttempts([]);
-      setShowAnswer(false);
       setSolved(false);
+      setFailed(false);
+      setGuess("");
     } else {
-      setGameState("results");
+      setScreen("results");
     }
   }
 
-  function getFilteredSuggestions() {
-    if (!guess.trim()) return [];
-    const q = guess.toLowerCase();
-    return COMMON_DIAGNOSES.filter(d => d.toLowerCase().includes(q)).slice(0, 6);
-  }
+  const suggestions = guess.trim().length >= 2
+    ? ALL_DIAGNOSES.filter(d => normalize(d.name).includes(normalize(guess)))
+        .filter(d => !attempts.some(a => a.name === d.name))
+        .slice(0, 6)
+    : [];
 
-  function getScoreEmoji() {
-    const maxPossible = cases.length * 6;
-    const pct = score / maxPossible;
-    if (pct > 0.7) return "🏆";
-    if (pct > 0.4) return "🎯";
-    if (pct > 0.2) return "📚";
-    return "💪";
-  }
-
-  const suggestions = getFilteredSuggestions();
+  const pct = cases.length ? score / (cases.length * MAX_ATTEMPTS) : 0;
 
   return (
-    <div style={{
-      minHeight: "100vh",
-      background: "#0a0f1a",
-      fontFamily: "'Segoe UI', system-ui, sans-serif",
-      color: "#e8e6e3",
-      position: "relative",
-      overflow: "hidden"
-    }}>
-      {/* Background texture */}
-      <div style={{
-        position: "fixed", inset: 0, opacity: 0.03, zIndex: 0,
-        backgroundImage: `radial-gradient(circle at 1px 1px, #fff 1px, transparent 0)`,
-        backgroundSize: "40px 40px"
-      }} />
+    <div style={S.root}>
+      <div style={S.bgDots} />
+      <div style={S.bgGlow} />
+      <div style={S.container}>
 
-      {/* Accent glow */}
-      <div style={{
-        position: "fixed", top: "-200px", right: "-200px", width: "600px", height: "600px",
-        background: "radial-gradient(circle, rgba(34,197,94,0.08) 0%, transparent 70%)",
-        zIndex: 0
-      }} />
-
-      <div style={{ position: "relative", zIndex: 1, maxWidth: 720, margin: "0 auto", padding: "24px 16px" }}>
-        
         {/* Header */}
-        <header style={{ textAlign: "center", marginBottom: 32 }}>
-          <div style={{
-            display: "inline-flex", alignItems: "center", gap: 12,
-            background: "linear-gradient(135deg, rgba(34,197,94,0.1), rgba(16,185,129,0.05))",
-            border: "1px solid rgba(34,197,94,0.2)",
-            borderRadius: 16, padding: "12px 24px", marginBottom: 12
-          }}>
-            <span style={{ fontSize: 32 }}>🩺</span>
-            <div style={{ textAlign: "left" }}>
-              <h1 style={{
-                fontSize: 28, fontWeight: 800, margin: 0, letterSpacing: "-0.5px",
-                background: "linear-gradient(135deg, #22c55e, #10b981)",
-                WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"
-              }}>VetDordle</h1>
-              <p style={{ margin: 0, fontSize: 11, color: "#6b7280", letterSpacing: "2px", textTransform: "uppercase" }}>
-                Diagnóstico Veterinário
-              </p>
+        <header style={S.header}>
+          <div style={S.logo}>
+            <span style={{ fontSize: 28 }}>🩺</span>
+            <div>
+              <h1 style={S.h1}>VetDordle</h1>
+              <p style={S.sub}>DIAGNÓSTICO VETERINÁRIO</p>
             </div>
           </div>
+          {screen === "playing" && <div style={S.pts}>{score} pts</div>}
         </header>
 
-        {/* MENU */}
-        {gameState === "menu" && (
-          <div style={{ textAlign: "center", animation: "fadeIn 0.6s ease" }}>
-            <div style={{
-              background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)",
-              borderRadius: 20, padding: "40px 32px", marginBottom: 24
-            }}>
-              <p style={{ fontSize: 18, lineHeight: 1.7, color: "#9ca3af", marginBottom: 32 }}>
-                Casos clínicos veterinários são revelados progressivamente.
-                Analise os achados e adivinhe o diagnóstico usando o menor número de pistas possível.
+        {/* ── MENU ── */}
+        {screen === "menu" && (
+          <div style={{ animation: "fu .5s ease" }}>
+            <div style={S.card}>
+              <p style={S.desc}>
+                Leia o caso clínico completo e tente acertar o diagnóstico.
+                A cada tentativa você recebe feedback em 5 categorias, igual ao Wordle:
+                verde se a categoria combina com a resposta, vermelho se não combina.
+                Use esse feedback para refinar suas próximas tentativas.
               </p>
-              <div style={{
-                display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 32
-              }}>
-                {[
-                  { n: "6", label: "pistas por caso" },
-                  { n: "3", label: "tentativas de resposta" },
-                  { n: "8", label: "casos no total" }
-                ].map((item, i) => (
-                  <div key={i} style={{
-                    background: "rgba(34,197,94,0.06)", borderRadius: 12, padding: "16px 8px",
-                    border: "1px solid rgba(34,197,94,0.1)"
-                  }}>
-                    <div style={{ fontSize: 28, fontWeight: 800, color: "#22c55e" }}>{item.n}</div>
-                    <div style={{ fontSize: 12, color: "#6b7280", marginTop: 4 }}>{item.label}</div>
-                  </div>
+              <div style={S.catRow}>
+                {CATEGORIES.map((c, i) => (
+                  <div key={i} style={S.catChip}><span>{c.icon}</span><span style={{ fontSize: 12 }}>{c.label}</span></div>
                 ))}
               </div>
-              <button onClick={startGame} style={{
-                background: "linear-gradient(135deg, #22c55e, #16a34a)",
-                color: "#fff", border: "none", borderRadius: 14,
-                padding: "16px 48px", fontSize: 18, fontWeight: 700,
-                cursor: "pointer", letterSpacing: "0.5px",
-                boxShadow: "0 4px 24px rgba(34,197,94,0.3)",
-                transition: "transform 0.2s, box-shadow 0.2s"
-              }}
-                onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = "0 8px 32px rgba(34,197,94,0.4)"; }}
-                onMouseLeave={e => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 4px 24px rgba(34,197,94,0.3)"; }}
-              >
-                Iniciar Jogo
-              </button>
-            </div>
-            <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
-              {["🐶 Cães", "🐱 Gatos", "🐴 Equinos", "🐄 Bovinos"].map((tag, i) => (
-                <span key={i} style={{
-                  fontSize: 12, padding: "6px 14px", borderRadius: 20,
-                  background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)",
-                  color: "#9ca3af"
-                }}>{tag}</span>
-              ))}
+              <div style={S.legendRow}>
+                <div style={S.legendItem}><div style={{ ...S.legendDot, background: "#22c55e" }} /><span style={{ fontSize: 13, color: "#d1d5db" }}>Combina</span></div>
+                <div style={S.legendItem}><div style={{ ...S.legendDot, background: "#ef4444" }} /><span style={{ fontSize: 13, color: "#d1d5db" }}>Não combina</span></div>
+              </div>
+              <div style={S.numRow}>
+                {[{ n: "6", l: "tentativas" }, { n: "5", l: "categorias" }, { n: "8", l: "casos" }].map((s, i) => (
+                  <div key={i} style={S.numBox}><div style={S.numN}>{s.n}</div><div style={S.numL}>{s.l}</div></div>
+                ))}
+              </div>
+              <button onClick={startGame} style={S.btnG}>Iniciar</button>
             </div>
           </div>
         )}
 
-        {/* PLAYING */}
-        {gameState === "playing" && currentCase && (
-          <div style={{ animation: "fadeIn 0.4s ease" }}>
-            {/* Progress bar */}
-            <div style={{
-              display: "flex", alignItems: "center", justifyContent: "space-between",
-              marginBottom: 20, gap: 12
-            }}>
-              <span style={{ fontSize: 13, color: "#6b7280" }}>
-                Caso {caseIndex + 1}/{cases.length}
-              </span>
-              <div style={{ flex: 1, height: 4, background: "rgba(255,255,255,0.06)", borderRadius: 4 }}>
-                <div style={{
-                  height: "100%", borderRadius: 4,
-                  background: "linear-gradient(90deg, #22c55e, #10b981)",
-                  width: `${((caseIndex) / cases.length) * 100}%`,
-                  transition: "width 0.5s ease"
-                }} />
-              </div>
-              <span style={{
-                fontSize: 13, color: "#22c55e", fontWeight: 700,
-                background: "rgba(34,197,94,0.1)", padding: "4px 12px", borderRadius: 8
-              }}>
-                {score} pts
-              </span>
+        {/* ── PLAYING ── */}
+        {screen === "playing" && currentCase && (
+          <div style={{ animation: "fu .4s ease" }}>
+            <div style={S.progRow}>
+              <span style={S.progLbl}>Caso {caseIdx + 1}/{cases.length}</span>
+              <div style={S.progBar}><div style={{ ...S.progFill, width: `${(caseIdx / cases.length) * 100}%` }} /></div>
             </div>
 
-            {/* Clue cards */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
-              {currentCase.clues.map((clue, i) => {
-                const revealed = i < revealedClues;
-                const isAnimating = i === animatingClue;
-                return (
-                  <div key={i} style={{
-                    background: revealed ? "rgba(255,255,255,0.04)" : "rgba(255,255,255,0.015)",
-                    border: `1px solid ${revealed ? "rgba(34,197,94,0.15)" : "rgba(255,255,255,0.04)"}`,
-                    borderRadius: 14, padding: revealed ? "16px 18px" : "12px 18px",
-                    transition: "all 0.4s ease",
-                    opacity: revealed ? 1 : 0.3,
-                    transform: isAnimating ? "scale(1.01)" : "scale(1)",
-                  }}>
-                    <div style={{
-                      display: "flex", alignItems: "center", gap: 10, marginBottom: revealed ? 8 : 0
-                    }}>
-                      <span style={{ fontSize: 18, filter: revealed ? "none" : "grayscale(1)" }}>{clue.icon}</span>
-                      <span style={{
-                        fontSize: 13, fontWeight: 700, textTransform: "uppercase",
-                        letterSpacing: "1px", color: revealed ? "#22c55e" : "#4b5563"
-                      }}>
-                        {clue.type}
-                      </span>
-                      {!revealed && (
-                        <span style={{
-                          marginLeft: "auto", fontSize: 11, color: "#4b5563",
-                          padding: "2px 10px", borderRadius: 6,
-                          background: "rgba(255,255,255,0.03)"
-                        }}>🔒</span>
-                      )}
-                    </div>
-                    {revealed && (
-                      <p style={{
-                        margin: 0, fontSize: 14, lineHeight: 1.7, color: "#d1d5db",
-                        animation: isAnimating ? "fadeIn 0.5s ease" : "none"
-                      }}>
-                        {clue.text}
-                      </p>
-                    )}
-                  </div>
-                );
-              })}
+            {/* Vignette */}
+            <div style={S.vig}>
+              <div style={S.vigH}><span style={{ fontSize: 16 }}>📋</span><span style={S.vigT}>Caso Clínico</span></div>
+              <p style={S.vigP}>{currentCase.vignette}</p>
             </div>
 
-            {/* Reveal button */}
-            {!solved && !showAnswer && revealedClues < maxClues && (
-              <button onClick={revealNext} style={{
-                width: "100%", padding: "12px",
-                background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: 12, color: "#9ca3af", fontSize: 14, cursor: "pointer",
-                transition: "all 0.2s", marginBottom: 20, fontWeight: 500
-              }}
-                onMouseEnter={e => { e.target.style.background = "rgba(255,255,255,0.07)"; e.target.style.color = "#e5e7eb"; }}
-                onMouseLeave={e => { e.target.style.background = "rgba(255,255,255,0.04)"; e.target.style.color = "#9ca3af"; }}
-              >
-                Revelar próxima pista ({revealedClues}/{maxClues})
-              </button>
-            )}
-
-            {/* Previous attempts */}
+            {/* Grid */}
             {attempts.length > 0 && (
-              <div style={{ marginBottom: 16, display: "flex", flexDirection: "column", gap: 6 }}>
-                {attempts.map((a, i) => (
-                  <div key={i} style={{
-                    display: "flex", alignItems: "center", gap: 10, padding: "10px 14px",
-                    borderRadius: 10,
-                    background: a.correct ? "rgba(34,197,94,0.1)" : "rgba(239,68,68,0.08)",
-                    border: `1px solid ${a.correct ? "rgba(34,197,94,0.3)" : "rgba(239,68,68,0.2)"}`
+              <div style={S.grid}>
+                <div style={S.ghRow}>
+                  <div style={{ ...S.ghCell, flex: 2.2 }}>Diagnóstico</div>
+                  {CATEGORIES.map((c, i) => <div key={i} style={S.ghCell} title={c.label}>{c.icon}</div>)}
+                </div>
+                {attempts.map((att, ri) => (
+                  <div key={ri} style={{
+                    ...S.gRow,
+                    animation: ri === animRow ? "fu .4s ease" : "none",
+                    border: att.correct ? "1px solid rgba(34,197,94,0.4)" : "1px solid rgba(255,255,255,0.04)",
+                    background: att.correct ? "rgba(34,197,94,0.06)" : "rgba(255,255,255,0.02)",
                   }}>
-                    <span>{a.correct ? "✅" : "❌"}</span>
-                    <span style={{
-                      fontSize: 14, color: a.correct ? "#22c55e" : "#ef4444",
-                      fontWeight: a.correct ? 700 : 400
-                    }}>{a.text}</span>
+                    <div style={{ ...S.gDiag, color: att.correct ? "#22c55e" : "#e8e6e3", fontWeight: att.correct ? 700 : 400 }}>
+                      {att.correct && <span style={{ marginRight: 4 }}>✓</span>}{att.name}
+                    </div>
+                    {att.comparison && att.comparison.map((cat, ci) => (
+                      <div key={ci} style={{
+                        ...S.gCell,
+                        background: cat.match ? "rgba(34,197,94,0.18)" : "rgba(239,68,68,0.13)",
+                        color: cat.match ? "#4ade80" : "#f87171",
+                        animation: ri === animRow ? `fi .35s ease ${ci * 80}ms backwards` : "none",
+                      }}>
+                        <div style={{ fontSize: 15, fontWeight: 700 }}>{cat.match ? "✓" : "✗"}</div>
+                        <div style={{ fontSize: 9, opacity: 0.75, marginTop: 1, textAlign: "center", lineHeight: 1.2 }}>{cat.guessVal}</div>
+                      </div>
+                    ))}
                   </div>
                 ))}
               </div>
             )}
 
-            {/* Guess input */}
-            {!solved && !showAnswer && (
-              <div style={{ position: "relative", marginBottom: 16 }} ref={suggestionsRef}>
-                <div style={{ display: "flex", gap: 8 }}>
+            {/* Input */}
+            {!solved && !failed && (
+              <div style={{ position: "relative", marginTop: 16 }} ref={sugRef}>
+                <div style={S.inRow}>
                   <div style={{ flex: 1, position: "relative" }}>
-                    <input
-                      ref={inputRef}
-                      type="text"
-                      value={guess}
+                    <input ref={inputRef} value={guess}
                       onChange={e => { setGuess(e.target.value); setShowSuggestions(true); }}
                       onFocus={() => setShowSuggestions(true)}
-                      onKeyDown={e => e.key === "Enter" && checkGuess()}
-                      placeholder="Digite seu diagnóstico..."
-                      style={{
-                        width: "100%", padding: "14px 16px",
-                        background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)",
-                        borderRadius: 12, color: "#e8e6e3", fontSize: 15,
-                        outline: "none", boxSizing: "border-box",
-                        transition: "border-color 0.2s"
-                      }}
-                      onFocusCapture={e => e.target.style.borderColor = "rgba(34,197,94,0.4)"}
-                      onBlurCapture={e => e.target.style.borderColor = "rgba(255,255,255,0.1)"}
-                    />
+                      onKeyDown={e => e.key === "Enter" && submitGuess()}
+                      placeholder="Digite um diagnóstico..." style={S.inp} />
                   </div>
-                  <button onClick={checkGuess} style={{
-                    padding: "14px 24px", background: "linear-gradient(135deg, #22c55e, #16a34a)",
-                    border: "none", borderRadius: 12, color: "#fff",
-                    fontWeight: 700, fontSize: 14, cursor: "pointer",
-                    boxShadow: "0 2px 12px rgba(34,197,94,0.2)",
-                    transition: "transform 0.15s", whiteSpace: "nowrap"
-                  }}
-                    onMouseEnter={e => e.target.style.transform = "scale(1.03)"}
-                    onMouseLeave={e => e.target.style.transform = "scale(1)"}
-                  >
-                    Responder
-                  </button>
+                  <button onClick={submitGuess} style={S.btnS}>Enviar</button>
                 </div>
                 {showSuggestions && suggestions.length > 0 && (
-                  <div style={{
-                    position: "absolute", top: "100%", left: 0, right: 80, marginTop: 4,
-                    background: "#1a1f2e", border: "1px solid rgba(255,255,255,0.1)",
-                    borderRadius: 12, overflow: "hidden", zIndex: 10,
-                    boxShadow: "0 8px 32px rgba(0,0,0,0.4)"
-                  }}>
+                  <div style={S.sugBox}>
                     {suggestions.map((s, i) => (
-                      <div key={i} onClick={() => { setGuess(s); setShowSuggestions(false); inputRef.current?.focus(); }}
-                        style={{
-                          padding: "10px 16px", cursor: "pointer", fontSize: 14,
-                          borderBottom: i < suggestions.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
-                          transition: "background 0.15s"
-                        }}
+                      <div key={i} onClick={() => { setGuess(s.name); setShowSuggestions(false); inputRef.current?.focus(); }}
+                        style={S.sugI}
                         onMouseEnter={e => e.target.style.background = "rgba(34,197,94,0.1)"}
-                        onMouseLeave={e => e.target.style.background = "transparent"}
-                      >
-                        {s}
+                        onMouseLeave={e => e.target.style.background = "transparent"}>
+                        <span>{s.name}</span>
+                        <span style={S.sugM}>{s.species} · {s.system}</span>
                       </div>
                     ))}
                   </div>
                 )}
-                <div style={{ marginTop: 8, fontSize: 12, color: "#6b7280" }}>
-                  Tentativa {attempts.length + 1} de 3
-                </div>
+                <div style={S.attL}>Tentativa {attempts.length + 1} de {MAX_ATTEMPTS}</div>
               </div>
             )}
 
             {/* Solved */}
             {solved && (
-              <div style={{
-                background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.25)",
-                borderRadius: 16, padding: 24, textAlign: "center", marginBottom: 16,
-                animation: "fadeIn 0.5s ease"
-              }}>
-                <div style={{ fontSize: 36, marginBottom: 8 }}>🎉</div>
-                <h3 style={{ margin: 0, fontSize: 20, color: "#22c55e", fontWeight: 700 }}>
-                  Diagnóstico Correto!
-                </h3>
-                <p style={{ margin: "8px 0 0", fontSize: 14, color: "#9ca3af" }}>
-                  {currentCase.diagnosis} — acertou com {revealedClues} de {maxClues} pistas
-                </p>
-                <p style={{ margin: "4px 0 16px", fontSize: 22, color: "#22c55e", fontWeight: 800 }}>
-                  +{Math.max(maxClues - revealedClues + 1, 1)} pontos
-                </p>
-                <button onClick={nextCase} style={{
-                  padding: "12px 32px", background: "linear-gradient(135deg, #22c55e, #16a34a)",
-                  border: "none", borderRadius: 12, color: "#fff",
-                  fontWeight: 700, fontSize: 15, cursor: "pointer",
-                  boxShadow: "0 2px 16px rgba(34,197,94,0.3)"
-                }}>
-                  {caseIndex + 1 < cases.length ? "Próximo Caso →" : "Ver Resultado"}
-                </button>
+              <div style={{ ...S.resCard, borderColor: "rgba(34,197,94,0.3)", background: "rgba(34,197,94,0.06)" }}>
+                <div style={{ fontSize: 40 }}>🎉</div>
+                <h3 style={{ color: "#22c55e", fontSize: 20, margin: "8px 0 4px", fontWeight: 700 }}>Diagnóstico Correto!</h3>
+                <p style={{ color: "#9ca3af", fontSize: 14 }}>Acertou na tentativa {attempts.length} de {MAX_ATTEMPTS}</p>
+                <p style={{ color: "#22c55e", fontSize: 24, fontWeight: 800, margin: "8px 0 16px" }}>+{Math.max(MAX_ATTEMPTS - attempts.length + 1, 1)} pts</p>
+                <button onClick={nextCase} style={S.btnG}>{caseIdx + 1 < cases.length ? "Próximo Caso →" : "Ver Resultado"}</button>
               </div>
             )}
 
             {/* Failed */}
-            {showAnswer && !solved && (
-              <div style={{
-                background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.2)",
-                borderRadius: 16, padding: 24, textAlign: "center", marginBottom: 16,
-                animation: "fadeIn 0.5s ease"
-              }}>
-                <div style={{ fontSize: 36, marginBottom: 8 }}>📖</div>
-                <h3 style={{ margin: 0, fontSize: 18, color: "#ef4444" }}>Tentativas esgotadas</h3>
-                <p style={{ margin: "12px 0", fontSize: 16, color: "#e8e6e3" }}>
-                  O diagnóstico era: <strong style={{ color: "#22c55e" }}>{currentCase.diagnosis}</strong>
-                </p>
-                <button onClick={nextCase} style={{
-                  padding: "12px 32px", background: "rgba(255,255,255,0.08)",
-                  border: "1px solid rgba(255,255,255,0.15)", borderRadius: 12,
-                  color: "#e8e6e3", fontWeight: 600, fontSize: 15, cursor: "pointer",
-                  marginTop: 8
-                }}>
-                  {caseIndex + 1 < cases.length ? "Próximo Caso →" : "Ver Resultado"}
+            {failed && (
+              <div style={{ ...S.resCard, borderColor: "rgba(239,68,68,0.25)", background: "rgba(239,68,68,0.05)" }}>
+                <div style={{ fontSize: 40 }}>📖</div>
+                <h3 style={{ color: "#ef4444", fontSize: 18, margin: "8px 0 4px" }}>Tentativas esgotadas</h3>
+                <p style={{ color: "#e8e6e3", fontSize: 15, margin: "8px 0" }}>O diagnóstico era: <strong style={{ color: "#22c55e" }}>{currentCase.answer}</strong></p>
+                {answerData && (
+                  <div style={S.ansTags}>
+                    {CATEGORIES.map((c, i) => <span key={i} style={S.ansTag}>{c.icon} {answerData[c.key]}</span>)}
+                  </div>
+                )}
+                <button onClick={nextCase} style={{ ...S.btnG, background: "rgba(255,255,255,0.08)", boxShadow: "none", marginTop: 16 }}>
+                  {caseIdx + 1 < cases.length ? "Próximo Caso →" : "Ver Resultado"}
                 </button>
               </div>
             )}
           </div>
         )}
 
-        {/* RESULTS */}
-        {gameState === "results" && (
-          <div style={{ textAlign: "center", animation: "fadeIn 0.6s ease" }}>
-            <div style={{
-              background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)",
-              borderRadius: 20, padding: "40px 32px"
-            }}>
-              <div style={{ fontSize: 56, marginBottom: 12 }}>{getScoreEmoji()}</div>
-              <h2 style={{
-                fontSize: 28, fontWeight: 800, margin: "0 0 8px",
-                background: "linear-gradient(135deg, #22c55e, #10b981)",
-                WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"
-              }}>Resultado Final</h2>
-              <div style={{
-                fontSize: 48, fontWeight: 800, color: "#22c55e", margin: "16px 0"
-              }}>
-                {score}
-                <span style={{ fontSize: 20, color: "#6b7280", fontWeight: 400 }}> / {cases.length * 6} pts</span>
-              </div>
-              <p style={{ fontSize: 15, color: "#9ca3af", lineHeight: 1.6, marginBottom: 32 }}>
-                {score >= cases.length * 4
-                  ? "Excelente raciocínio clínico! Sua semiologia veterinária está afiada."
-                  : score >= cases.length * 2
-                  ? "Bom desempenho! Com mais prática nos achados clínicos, seu diagnóstico diferencial vai melhorar."
-                  : "Continue estudando os casos clínicos. A semiologia é uma habilidade que se refina com a prática."}
+        {/* ── RESULTS ── */}
+        {screen === "results" && (
+          <div style={{ textAlign: "center", animation: "fu .5s ease" }}>
+            <div style={S.card}>
+              <div style={{ fontSize: 56, marginBottom: 8 }}>{pct > 0.6 ? "🏆" : pct > 0.3 ? "🎯" : "📚"}</div>
+              <h2 style={S.resT}>Resultado Final</h2>
+              <div style={S.resSc}>{score}<span style={S.resMx}> / {cases.length * MAX_ATTEMPTS}</span></div>
+              <p style={S.resMsg}>
+                {pct > 0.6
+                  ? "Raciocínio clínico exemplar. Sua capacidade de diagnóstico diferencial está refinada."
+                  : pct > 0.3
+                  ? "Bom desempenho. Revisando os sistemas e etiologias, o diferencial fica mais rápido."
+                  : "Continue treinando. A prática com casos clínicos é o que consolida o raciocínio semiológico."}
               </p>
-              <button onClick={startGame} style={{
-                padding: "16px 48px",
-                background: "linear-gradient(135deg, #22c55e, #16a34a)",
-                border: "none", borderRadius: 14, color: "#fff",
-                fontWeight: 700, fontSize: 17, cursor: "pointer",
-                boxShadow: "0 4px 24px rgba(34,197,94,0.3)"
-              }}>
-                Jogar Novamente
-              </button>
+              <button onClick={startGame} style={S.btnG}>Jogar Novamente</button>
             </div>
           </div>
         )}
 
-        {/* Footer */}
-        <footer style={{
-          textAlign: "center", marginTop: 40, padding: "16px 0",
-          borderTop: "1px solid rgba(255,255,255,0.04)"
-        }}>
-          <p style={{ fontSize: 11, color: "#4b5563", margin: 0 }}>
-            VetDordle — Jogo educativo de diagnóstico veterinário
-          </p>
-        </footer>
+        <footer style={S.foot}>VetDordle — Jogo educativo de diagnóstico veterinário</footer>
       </div>
 
       <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(8px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        input::placeholder { color: #4b5563; }
+        @keyframes fu { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes fi { from { opacity:0; transform:rotateX(90deg) scale(.8); } to { opacity:1; transform:rotateX(0) scale(1); } }
+        input::placeholder { color:#4b5563; }
+        input:focus { border-color:rgba(34,197,94,.4)!important; outline:none; }
+        button { transition: transform .15s, box-shadow .2s; }
       `}</style>
     </div>
   );
 }
+
+/* ─── STYLES ─── */
+const S = {
+  root: { minHeight: "100vh", background: "#0a0f1a", fontFamily: "'Segoe UI',system-ui,sans-serif", color: "#e8e6e3", position: "relative", overflow: "hidden" },
+  bgDots: { position: "fixed", inset: 0, opacity: .025, zIndex: 0, backgroundImage: "radial-gradient(circle at 1px 1px,#fff 1px,transparent 0)", backgroundSize: "40px 40px" },
+  bgGlow: { position: "fixed", top: -200, right: -200, width: 600, height: 600, background: "radial-gradient(circle,rgba(34,197,94,.07) 0%,transparent 70%)", zIndex: 0 },
+  container: { position: "relative", zIndex: 1, maxWidth: 760, margin: "0 auto", padding: "20px 16px" },
+  header: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24 },
+  logo: { display: "inline-flex", alignItems: "center", gap: 10, background: "linear-gradient(135deg,rgba(34,197,94,.08),rgba(16,185,129,.04))", border: "1px solid rgba(34,197,94,.15)", borderRadius: 14, padding: "10px 20px" },
+  h1: { fontSize: 24, fontWeight: 800, margin: 0, letterSpacing: -.5, background: "linear-gradient(135deg,#22c55e,#10b981)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" },
+  sub: { margin: 0, fontSize: 9, color: "#6b7280", letterSpacing: 2 },
+  pts: { fontSize: 14, fontWeight: 700, color: "#22c55e", background: "rgba(34,197,94,.1)", padding: "6px 16px", borderRadius: 10 },
+  card: { background: "rgba(255,255,255,.025)", border: "1px solid rgba(255,255,255,.05)", borderRadius: 20, padding: "36px 28px", textAlign: "center" },
+  desc: { fontSize: 16, lineHeight: 1.7, color: "#9ca3af", marginBottom: 24, textAlign: "left" },
+  catRow: { display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center", marginBottom: 20 },
+  catChip: { display: "flex", alignItems: "center", gap: 6, padding: "6px 14px", borderRadius: 10, background: "rgba(34,197,94,.06)", border: "1px solid rgba(34,197,94,.1)", color: "#d1d5db", fontSize: 13 },
+  legendRow: { display: "flex", gap: 16, justifyContent: "center", marginBottom: 24 },
+  legendItem: { display: "flex", alignItems: "center", gap: 8 },
+  legendDot: { width: 16, height: 16, borderRadius: 4 },
+  numRow: { display: "flex", gap: 12, justifyContent: "center", marginBottom: 28 },
+  numBox: { background: "rgba(34,197,94,.05)", borderRadius: 12, padding: "14px 24px", border: "1px solid rgba(34,197,94,.08)" },
+  numN: { fontSize: 26, fontWeight: 800, color: "#22c55e" },
+  numL: { fontSize: 11, color: "#6b7280", marginTop: 2 },
+  btnG: { background: "linear-gradient(135deg,#22c55e,#16a34a)", color: "#fff", border: "none", borderRadius: 14, padding: "14px 44px", fontSize: 17, fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 24px rgba(34,197,94,.25)" },
+  progRow: { display: "flex", alignItems: "center", gap: 12, marginBottom: 16 },
+  progLbl: { fontSize: 13, color: "#6b7280", whiteSpace: "nowrap" },
+  progBar: { flex: 1, height: 4, background: "rgba(255,255,255,.05)", borderRadius: 4 },
+  progFill: { height: "100%", borderRadius: 4, background: "linear-gradient(90deg,#22c55e,#10b981)", transition: "width .5s" },
+  vig: { background: "rgba(255,255,255,.03)", border: "1px solid rgba(255,255,255,.06)", borderRadius: 16, padding: "20px 22px", marginBottom: 20 },
+  vigH: { display: "flex", alignItems: "center", gap: 8, marginBottom: 12 },
+  vigT: { fontSize: 13, fontWeight: 700, color: "#22c55e", textTransform: "uppercase", letterSpacing: 1 },
+  vigP: { fontSize: 15, lineHeight: 1.8, color: "#d1d5db", margin: 0, textAlign: "left" },
+  grid: { display: "flex", flexDirection: "column", gap: 6 },
+  ghRow: { display: "flex", gap: 6, padding: "0 4px", marginBottom: 4 },
+  ghCell: { flex: 1, textAlign: "center", fontSize: 12, color: "#6b7280", padding: "4px 0" },
+  gRow: { display: "flex", gap: 6, padding: "8px 4px", borderRadius: 12, alignItems: "center" },
+  gDiag: { flex: 2.2, fontSize: 13, padding: "0 4px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" },
+  gCell: { flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "8px 2px", borderRadius: 8, minHeight: 48 },
+  inRow: { display: "flex", gap: 8 },
+  inp: { width: "100%", padding: "14px 16px", background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.08)", borderRadius: 12, color: "#e8e6e3", fontSize: 15, boxSizing: "border-box" },
+  btnS: { padding: "14px 24px", background: "linear-gradient(135deg,#22c55e,#16a34a)", border: "none", borderRadius: 12, color: "#fff", fontWeight: 700, fontSize: 14, cursor: "pointer", boxShadow: "0 2px 12px rgba(34,197,94,.2)", whiteSpace: "nowrap" },
+  sugBox: { position: "absolute", top: "100%", left: 0, right: 80, marginTop: 4, zIndex: 10, background: "#1a1f2e", border: "1px solid rgba(255,255,255,.1)", borderRadius: 12, overflow: "hidden", boxShadow: "0 8px 32px rgba(0,0,0,.4)" },
+  sugI: { padding: "10px 16px", cursor: "pointer", fontSize: 14, display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,.03)", transition: "background .15s" },
+  sugM: { fontSize: 11, color: "#6b7280" },
+  attL: { marginTop: 8, fontSize: 12, color: "#6b7280" },
+  resCard: { border: "1px solid", borderRadius: 16, padding: 28, textAlign: "center", marginTop: 16, animation: "fu .5s ease" },
+  ansTags: { display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "center", margin: "12px 0" },
+  ansTag: { fontSize: 11, padding: "4px 10px", borderRadius: 8, background: "rgba(255,255,255,.05)", color: "#9ca3af" },
+  resT: { fontSize: 26, fontWeight: 800, margin: "0 0 8px", background: "linear-gradient(135deg,#22c55e,#10b981)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" },
+  resSc: { fontSize: 48, fontWeight: 800, color: "#22c55e", margin: "16px 0" },
+  resMx: { fontSize: 20, color: "#6b7280", fontWeight: 400 },
+  resMsg: { fontSize: 15, color: "#9ca3af", lineHeight: 1.6, marginBottom: 28 },
+  foot: { textAlign: "center", marginTop: 40, padding: 16, borderTop: "1px solid rgba(255,255,255,.03)", fontSize: 11, color: "#4b5563" },
+};
