@@ -65,223 +65,331 @@ const ALL_DIAGNOSES = [
   { name: "Dermatofitose", species: "felino", system: "tegumentar", etiology: "infecciosa", course: "crônico", age: "jovem" },
 ];
 
-/* ─── CLINICAL CASES ─── */
+/* ─── CLINICAL CASES (layered: presentation, history, exams) ─── */
 const CASES = [
   {
     answer: "Parvovirose Canina",
-    vignette: "Canino, SRD, macho, 3 meses, sem vacinação. Há 2 dias com anorexia, prostração intensa e vômitos frequentes. Adquirido em feira de adoção há 15 dias. Ao exame: temperatura 40,2°C, mucosas hipocoradas e secas, TPC > 3s, desidratação 8%, dor abdominal, diarreia sanguinolenta fétida. Hemograma com leucopenia acentuada (1.800/µL), linfopenia absoluta e trombocitopenia leve."
+    presentation: "Canino, SRD, macho, 3 meses, sem vacinação. Tutor relata que o animal parou de comer há 2 dias, está muito prostrado e apresenta vômitos frequentes.",
+    history: "Animal adquirido em feira de adoção há 15 dias. Convive com outros cães no domicílio. Não recebeu nenhuma dose de vacina polivalente. Alimentação com ração seca para filhotes.",
+    exams: "Temperatura 40,2°C, mucosas hipocoradas e secas, TPC > 3s, desidratação 8%, dor abdominal, diarreia sanguinolenta fétida. Hemograma com leucopenia acentuada (1.800/µL), linfopenia absoluta e trombocitopenia leve. Snap test fecal positivo."
   },
   {
     answer: "Cinomose",
-    vignette: "Canino, Poodle, fêmea, 8 meses, apenas uma dose de V8. Secreção nasal e ocular mucopurulenta bilateral há 5 dias, tosse e apatia progressiva. Contato com cães de rua há duas semanas. Ao exame: hiperqueratose de coxins plantares, crepitação pulmonar cranioventral, pústulas abdominais. Hemograma com linfopenia (900/µL) e corpúsculos de inclusão de Lentz em linfócitos. Evolui com mioclonias e convulsões focais."
+    presentation: "Canino, Poodle, fêmea, 8 meses, protocolo vacinal incompleto (apenas uma dose de V8). Tutor relata secreção nasal e ocular há 5 dias, tosse e apatia progressiva.",
+    history: "Contato com cães de rua durante passeio sem supervisão há duas semanas. Secreção inicialmente serosa evoluiu para mucopurulenta. Apetite reduzido nos últimos 3 dias.",
+    exams: "Hiperqueratose de coxins plantares, crepitação pulmonar cranioventral, pústulas abdominais. Linfopenia (900/µL), corpúsculos de inclusão de Lentz em linfócitos. Evolui com mioclonias em membros pélvicos e convulsões focais."
   },
   {
     answer: "Torção Gástrica",
-    vignette: "Canino, Pastor Alemão, macho castrado, 7 anos, 38 kg. Distensão abdominal súbita após refeição volumosa única, com tentativas improdutivas de vômito e inquietação extrema há 2 horas. Hábito de exercício pós-prandial. Ao exame: abdômen cranial timpânico, FC 160 bpm, pulso filiforme, TPC > 4s, mucosas acinzentadas. Sonda orogástrica com resistência à passagem. Lactato 7,2 mmol/L. Radiografia com sinal de double bubble e deslocamento pilórico dorsocranial."
+    presentation: "Canino, Pastor Alemão, macho castrado, 7 anos, 38 kg. Tutor relata distensão abdominal súbita após a refeição, com tentativas improdutivas de vômito e inquietação extrema há 2 horas.",
+    history: "Animal recebe uma única refeição volumosa ao dia e tem o hábito de se exercitar logo após comer. Episódio nunca havia ocorrido antes. Sialorreia intensa.",
+    exams: "Abdômen cranial timpânico, FC 160 bpm, pulso filiforme, TPC > 4s, mucosas acinzentadas. Sonda orogástrica com resistência. Lactato 7,2 mmol/L. Radiografia com double bubble sign e deslocamento pilórico dorsocranial."
   },
   {
     answer: "Erliquiose Canina",
-    vignette: "Canino, Labrador, macho, 4 anos, acesso a área rural. Apatia progressiva há 10 dias com epistaxe espontânea. Infestação recorrente por carrapatos, último ectoparasiticida há 3 meses. Ao exame: temperatura 40,5°C, petéquias em mucosa oral, esplenomegalia, linfadenomegalia generalizada, carrapatos em região auricular. Hemograma com pancitopenia (Ht 22%, leucócitos 3.200/µL, plaquetas 18.000/µL) e mórulas em monócitos."
+    presentation: "Canino, Labrador, macho, 4 anos, acesso a área rural. Tutor relata apatia progressiva há 10 dias, perda de apetite e sangramento nasal espontâneo.",
+    history: "Histórico de infestação recorrente por carrapatos, último ectoparasiticida há 3 meses. Petéquias na região abdominal notadas há 3 dias. Sem trauma recente.",
+    exams: "Temperatura 40,5°C, petéquias em mucosa oral, esplenomegalia, linfadenomegalia generalizada, carrapatos em região auricular. Pancitopenia (Ht 22%, leucócitos 3.200/µL, plaquetas 18.000/µL), mórulas em monócitos. Snap 4DX positivo para Ehrlichia canis."
   },
   {
     answer: "Lipidose Hepática Felina",
-    vignette: "Felino, SRD, fêmea castrada, 9 anos, obesa (escore 9/9). Anorexia há 5 dias com vômitos esporádicos e icterícia. Estresse por introdução de novo gato há 3 semanas. Ao exame: icterícia marcante, desidratação 6%, hepatomegalia com bordas arredondadas, ventroflexão cervical. Bioquímica com ALT 380 U/L, FA 520 U/L, bilirrubina total 8,4 mg/dL, hipocalemia (2,9 mEq/L). Citologia hepática com hepatócitos vacuolizados por acúmulo lipídico difuso."
+    presentation: "Felino, SRD, fêmea castrada, 9 anos, obesa (escore 9/9). Tutor relata que a gata parou de comer há 5 dias, está vomitando e ficou com a pele e os olhos amarelados.",
+    history: "Introdução de novo gato no domicílio há 3 semanas. Desde então a paciente se esconde com frequência e demonstra estresse. Redução gradual do apetite até anorexia completa.",
+    exams: "Icterícia marcante, desidratação 6%, hepatomegalia com bordas arredondadas, ventroflexão cervical. ALT 380 U/L, FA 520 U/L, bilirrubina total 8,4 mg/dL, hipocalemia (2,9 mEq/L). Citologia hepática com hepatócitos vacuolizados por acúmulo lipídico difuso."
   },
   {
     answer: "Laminite Equina",
-    vignette: "Equino, Crioulo, macho castrado, 12 anos. Relutância ao movimento e postura com membros torácicos projetados cranialmente desde ontem. Acesso acidental a depósito de concentrado há 48 horas com ingestão de grande quantidade de milho. Ao exame: pulso digital aumentado bilateralmente, sensibilidade intensa à pinça de casco na região da pinça, claudicação Obel III. Glicemia 142 mg/dL, insulina elevada. Radiografia com rotação distal de P3."
+    presentation: "Equino, Crioulo, macho castrado, 12 anos. Proprietário relata que o animal está relutante em se movimentar e adota postura anormal com membros torácicos projetados para frente.",
+    history: "Acesso acidental ao depósito de ração há 48 horas, consumindo grande quantidade de concentrado à base de milho. Redução do apetite e relutância crescente ao movimento desde então.",
+    exams: "Pulso digital aumentado bilateralmente nos torácicos, sensibilidade intensa à pinça de casco na pinça, claudicação Obel III. Glicemia 142 mg/dL, insulina elevada. Radiografia com rotação distal de P3 e aumento da distância parede dorsal-P3."
   },
   {
     answer: "Obstrução Uretral Felina",
-    vignette: "Felino, Persa, macho castrado, 5 anos, indoor, ração seca exclusiva. Idas frequentes à caixa de areia com vocalização, sem produção de urina há 18 horas. Episódio semelhante autolimitante há 6 meses. Lambedura perineal excessiva e hematúria recente. Reforma no domicílio. Ao exame: bexiga firme e distendida, bradicardia (100 bpm), hipotermia (36,8°C). Ureia 320 mg/dL, creatinina 14,2 mg/dL, hipercalemia 8,9 mEq/L, ECG com ondas T apiculadas."
+    presentation: "Felino, Persa, macho castrado, 5 anos, indoor. Tutor relata que o gato está entrando e saindo da caixa de areia repetidamente, vocalizando, e não produziu urina há 18 horas.",
+    history: "Alimentação exclusiva com ração seca, baixa ingestão hídrica. Episódio semelhante autolimitante há 6 meses. Hematúria e lambedura perineal excessiva nos últimos 2 dias. Reforma recente no domicílio.",
+    exams: "Bexiga firme, distendida e dolorosa do tamanho de uma laranja. Material cristaloide na extremidade peniana. Bradicardia (100 bpm), hipotermia (36,8°C). Ureia 320 mg/dL, creatinina 14,2 mg/dL, hipercalemia 8,9 mEq/L. ECG com ondas T apiculadas."
   },
   {
     answer: "Babesiose Bovina",
-    vignette: "Bovino, Holandês, fêmea, 3 anos, em lactação, introduzida há 20 dias procedente de região sem carrapatos. Anorexia, queda na produção leiteira e hemoglobinúria. Infestação massiva por Rhipicephalus microplus sem premunição prévia. Ao exame: temperatura 41,3°C, mucosas ictéricas e hipocoradas, taquicardia, hemoglobinúria (urina cor de coca-cola). Hemograma com Ht 14%, reticulocitose, bilirrubina indireta elevada. Esfregaço com inclusões piriformes pareadas intra-eritrocitárias."
+    presentation: "Bovino, Holandês, fêmea, 3 anos, em lactação. Produtor relata que a vaca parou de comer, apresentou queda abrupta na produção leiteira e está com urina escurecida.",
+    history: "Recém-introduzida na propriedade há 20 dias, procedente de região com controle rigoroso de ectoparasitas. Infestação massiva por carrapatos após chegada. Nenhum protocolo de premunição realizado.",
+    exams: "Temperatura 41,3°C, mucosas ictéricas e hipocoradas, taquicardia, hemoglobinúria (urina cor de coca-cola). Ht 14%, reticulocitose, bilirrubina indireta elevada. Esfregaço com inclusões piriformes pareadas intra-eritrocitárias compatíveis com Babesia bovis."
   },
   {
     answer: "Piometra",
-    vignette: "Canino, Golden Retriever, fêmea inteira, 8 anos. Tutor relata apatia, polidipsia e inapetência progressiva há 4 dias. Último cio há aproximadamente 6 semanas. Presença de secreção vulvar purulenta e fétida. Ao exame: temperatura 39,9°C, mucosas hiperêmicas, desidratação 7%, abdômen tenso e doloroso à palpação caudal. Hemograma com leucocitose por neutrofilia com desvio à esquerda (28.000/µL). Ultrassonografia abdominal revela útero marcadamente distendido com conteúdo anecogênico a hipoecogênico."
+    presentation: "Canino, Golden Retriever, fêmea inteira, 8 anos. Tutor relata apatia, aumento da sede e inapetência progressiva há 4 dias, com secreção vulvar purulenta.",
+    history: "Último cio há aproximadamente 6 semanas. Nunca foi castrada, sem gestações prévias. Secreção vulvar com odor fétido percebida há 2 dias.",
+    exams: "Temperatura 39,9°C, mucosas hiperêmicas, desidratação 7%, abdômen tenso e doloroso caudalmente. Leucocitose por neutrofilia com desvio à esquerda (28.000/µL). Ultrassonografia com útero marcadamente distendido com conteúdo anecogênico a hipoecogênico."
   },
   {
     answer: "Doença Renal Crônica",
-    vignette: "Felino, Siamês, macho castrado, 14 anos. Tutor relata emagrecimento progressivo nos últimos 3 meses, aumento do consumo de água e aumento do volume urinário. Pelagem opaca e apetite seletivo. Ao exame: desidratação 5%, mucosas pálidas, rins de tamanho reduzido e contornos irregulares à palpação. Bioquímica com creatinina 4,8 mg/dL, ureia 120 mg/dL, fósforo 8,2 mg/dL. Urinálise com densidade 1.015, proteinúria. Pressão arterial sistólica 185 mmHg."
+    presentation: "Felino, Siamês, macho castrado, 14 anos. Tutor relata emagrecimento progressivo nos últimos 3 meses, aumento do consumo de água e do volume urinário.",
+    history: "Pelagem opaca e apetite seletivo há semanas. Sem histórico de doença prévia diagnosticada. Alimentação com ração seca sem controle de fósforo.",
+    exams: "Desidratação 5%, mucosas pálidas, rins reduzidos e irregulares à palpação. Creatinina 4,8 mg/dL, ureia 120 mg/dL, fósforo 8,2 mg/dL. Urinálise com densidade 1.015 e proteinúria. Pressão arterial sistólica 185 mmHg."
   },
   {
     answer: "Diabetes Mellitus Canina",
-    vignette: "Canino, Schnauzer Miniatura, fêmea castrada, 9 anos, obesa. Poliúria, polidipsia e polifagia com perda de peso progressiva há 3 semanas. Ao exame: escore corporal 7/9, catarata bilateral incipiente, hepatomegalia discreta. Glicemia de jejum 386 mg/dL. Frutosamina 520 µmol/L (elevada). Urinálise com glicosúria acentuada (4+) e densidade 1.040. Triglicerídeos e colesterol elevados. Sem cetonúria."
+    presentation: "Canino, Schnauzer Miniatura, fêmea castrada, 9 anos, obesa. Tutor relata que o animal urina muito, bebe muita água e come bastante, mas está emagrecendo.",
+    history: "Poliúria, polidipsia e polifagia com perda de peso há 3 semanas. Tutor nota opacidade nos olhos recentemente.",
+    exams: "Escore corporal 7/9, catarata bilateral incipiente, hepatomegalia discreta. Glicemia de jejum 386 mg/dL. Frutosamina 520 µmol/L. Urinálise com glicosúria (4+), densidade 1.040. Triglicerídeos e colesterol elevados. Sem cetonúria."
   },
   {
     answer: "Hipertireoidismo Felino",
-    vignette: "Felino, SRD, macho castrado, 13 anos. Tutor relata apetite voraz com perda de peso paradoxal nos últimos 2 meses, hiperatividade incomum para a idade e episódios de vômito. Ao exame: peso 3,2 kg (era 5 kg há 6 meses), taquicardia (260 bpm), sopro sistólico grau III/VI, nódulo palpável na região cervical ventral à esquerda, pelagem ressecada. Bioquímica com ALT levemente elevada. T4 total 9,8 µg/dL (referência até 4,0)."
+    presentation: "Felino, SRD, macho castrado, 13 anos. Tutor relata apetite voraz com perda de peso paradoxal nos últimos 2 meses e hiperatividade incomum para a idade.",
+    history: "Vômitos esporádicos. Tutor nota agitação e vocalização noturna. Peso caiu de 5 kg para 3,2 kg em 6 meses.",
+    exams: "Taquicardia (260 bpm), sopro sistólico III/VI, nódulo palpável cervical ventral esquerdo, pelagem ressecada. ALT levemente elevada. T4 total 9,8 µg/dL (referência até 4,0). Ecocardiograma com hipertrofia ventricular esquerda concêntrica leve."
   },
   {
     answer: "Leishmaniose Visceral Canina",
-    vignette: "Canino, Boxer, macho, 5 anos, região endêmica do semiárido nordestino. Emagrecimento progressivo há 2 meses, lesões cutâneas descamativas e onicogrifose. Ao exame: linfadenomegalia generalizada, esplenomegalia, dermatite furfurácea periocular, úlceras em pavilhão auricular, mucosas hipocoradas. Hemograma com anemia normocítica normocrômica e trombocitopenia. Proteinograma com hiperproteinemia por hiperglobulinemia e relação A/G invertida. Sorologia reagente (ELISA e DPP)."
+    presentation: "Canino, Boxer, macho, 5 anos, região endêmica do semiárido. Tutor relata emagrecimento progressivo há 2 meses, lesões na pele e unhas grandes demais.",
+    history: "Lesões cutâneas descamativas e onicogrifose percebidas gradualmente. Vive em área com presença de flebotomíneos. Sem coleira repelente ou vacinação específica.",
+    exams: "Linfadenomegalia generalizada, esplenomegalia, dermatite furfurácea periocular, úlceras auriculares, mucosas hipocoradas. Anemia e trombocitopenia. Hiperglobulinemia com relação A/G invertida. Sorologia reagente (ELISA e DPP)."
   },
   {
     answer: "Hiperadrenocorticismo Canino",
-    vignette: "Canino, Poodle, fêmea castrada, 10 anos. Tutor relata abdômen pendular progressivo, poliúria, polidipsia e alopecia bilateral simétrica no tronco há meses. Ao exame: pele fina e hipotônica, comedões abdominais, abdômen distendido e pendular, hepatomegalia. Hemograma com leucograma de estresse (linfopenia, eosinopenia). Bioquímica com FA 1.280 U/L, colesterol elevado, glicemia 145 mg/dL. Relação cortisol/creatinina urinária elevada. Teste de supressão com dexametasona em dose baixa sem supressão adequada do cortisol."
+    presentation: "Canino, Poodle, fêmea castrada, 10 anos. Tutor relata barriga grande, bebe e urina muito e está perdendo pelo no tronco há meses.",
+    history: "Abdômen pendular progressivo, alopecia bilateral simétrica no tronco, pele cada vez mais fina. Sem prurido.",
+    exams: "Pele fina e hipotônica, comedões abdominais, hepatomegalia. Leucograma de estresse. FA 1.280 U/L, colesterol elevado, glicemia 145 mg/dL. Relação cortisol/creatinina urinária elevada. Supressão com dexametasona sem supressão adequada."
   },
   {
     answer: "Complexo Respiratório Felino",
-    vignette: "Felino, SRD, fêmea, 4 meses, resgatada de colônia de gatos há 10 dias, sem vacinação. Espirros frequentes, secreção nasal serosa evoluindo para mucopurulenta, conjuntivite bilateral com quemose e úlcera corneana no olho esquerdo. Ao exame: temperatura 39,7°C, desidratação leve, estertores nasais, sialorreia. Presença de úlceras em ponta de língua e palato duro. Redução do apetite por provável anosmia."
+    presentation: "Felino, SRD, fêmea, 4 meses, resgatada de colônia, sem vacinação. Espirros frequentes, secreção nasal e olhos lacrimejando há dias.",
+    history: "Resgatada há 10 dias de colônia com muitos gatos. Secreção nasal evoluiu de serosa para mucopurulenta. Apetite reduzido.",
+    exams: "Temperatura 39,7°C, conjuntivite bilateral com quemose, úlcera corneana no olho esquerdo, estertores nasais, sialorreia. Úlceras em ponta de língua e palato duro. Desidratação leve."
   },
   {
     answer: "Cólica Equina",
-    vignette: "Equino, Mangalarga, fêmea, 8 anos. Apresentação aguda de dor abdominal há 4 horas com cavação, olhar para o flanco, rolamento no solo e sudorese profusa. Mudança recente de feno. Ao exame: FC 64 bpm, mucosas congestas, TPC 3s, borborigmos intestinais reduzidos no quadrante ventral direito. Sondagem nasogástrica com refluxo de 6 litros de líquido esverdeado. Palpação retal com distensão de intestino delgado. Lactato 4,5 mmol/L. Paracentese com líquido peritoneal serossanguinolento."
+    presentation: "Equino, Mangalarga, fêmea, 8 anos. Apresentação aguda de dor abdominal há 4 horas com cavação, olhar para o flanco e rolamento.",
+    history: "Mudança recente de feno. Sudorese profusa desde o início dos sinais. Animal se joga no chão repetidamente.",
+    exams: "FC 64 bpm, mucosas congestas, TPC 3s, borborigmos reduzidos. Sondagem nasogástrica com refluxo de 6 litros esverdeado. Palpação retal com distensão de delgado. Lactato 4,5 mmol/L. Paracentese com líquido serossanguinolento."
   },
   {
     answer: "Mastite Bovina",
-    vignette: "Bovino, Girolando, fêmea, 5 anos, em lactação (DEL 45). Produtor relata queda abrupta na produção leiteira e que o quarto mamário posterior esquerdo está inchado e quente desde ontem. Ao exame: temperatura 40,1°C, quarto afetado com edema, hiperemia, dor à palpação e endurecimento. Secreção com grumos e coloração amarelada. Teste da caneca de fundo preto com grumos visíveis. CMT fortemente positivo (3+) no quarto afetado. Leite enviado para cultura com isolamento de Staphylococcus aureus."
+    presentation: "Bovino, Girolando, fêmea, 5 anos, em lactação (DEL 45). Produtor relata queda abrupta na produção e que um teto está inchado e quente desde ontem.",
+    history: "Manejo de ordenha mecânica sem pré e pós-dipping adequado. Úbere posterior esquerdo afetado. Animal relutante durante a ordenha.",
+    exams: "Temperatura 40,1°C, quarto afetado com edema, hiperemia, dor e endurecimento. Secreção com grumos amarelados. Caneca de fundo preto com grumos. CMT 3+ no quarto afetado. Cultura com Staphylococcus aureus."
   },
   {
     answer: "Sarna Demodécica",
-    vignette: "Canino, Bulldog Inglês, macho, 7 meses. Áreas de alopecia multifocal em face, membros e tronco com progressão nos últimos 30 dias. Sem prurido intenso inicialmente, mas com piodermite secundária em algumas lesões. Ao exame: alopecia periocular bilateral, comedões, cilindros foliculares, eritema e pápulas. Múltiplas áreas de hiperpigmentação. Raspado cutâneo profundo com presença abundante de ácaros fusiformes em todas as fases de desenvolvimento (ovos, larvas, ninfas e adultos)."
+    presentation: "Canino, Bulldog Inglês, macho, 7 meses. Tutor relata áreas de falhas de pelo em face, membros e tronco, piorando no último mês.",
+    history: "Sem prurido intenso inicialmente, mas algumas lesões começaram a infeccionar. Alopecia progressiva multifocal.",
+    exams: "Alopecia periocular bilateral, comedões, cilindros foliculares, eritema e pápulas. Hiperpigmentação. Piodermite secundária. Raspado cutâneo profundo com ácaros fusiformes abundantes em todas as fases (ovos, larvas, ninfas, adultos)."
   },
   {
     answer: "Cardiomiopatia Dilatada",
-    vignette: "Canino, Dobermann, macho, 6 anos. Tutor relata intolerância ao exercício progressiva, tosse noturna e dois episódios de síncope nas últimas semanas. Ao exame: mucosas pálidas, FC 180 bpm irregular, déficit de pulso, sopro sistólico apical esquerdo grau IV/VI, crepitação pulmonar bilateral. Ascite discreta. ECG com fibrilação atrial e complexos ventriculares prematuros. Radiografia torácica com cardiomegalia generalizada e edema pulmonar perihilar. Ecocardiograma com fração de encurtamento 12% e câmaras dilatadas."
+    presentation: "Canino, Dobermann, macho, 6 anos. Tutor relata intolerância ao exercício, tosse noturna e dois episódios de desmaio nas últimas semanas.",
+    history: "Piora progressiva da disposição nos últimos 2 meses. Tosse especialmente ao deitar. Barriga levemente distendida recentemente.",
+    exams: "Mucosas pálidas, FC 180 bpm irregular, déficit de pulso, sopro IV/VI apical esquerdo, crepitação pulmonar bilateral. Ascite. ECG com fibrilação atrial e VPCs. Radiografia com cardiomegalia e edema pulmonar. Eco com fração de encurtamento 12%."
   },
   {
     answer: "Cardiomiopatia Hipertrófica Felina",
-    vignette: "Felino, Maine Coon, macho, 4 anos. Apresentação aguda de dispneia e vocalização intensa. Tutor nega histórico prévio de doença. Ao exame: taquipneia (60 mpm), padrão respiratório restritivo, mucosas cianóticas, temperatura 36,5°C, membro pélvico esquerdo com ausência de pulso femoral, coxins plantares pálidos e frios, dor intensa à palpação do membro. Auscultação com ritmo de galope (S3). Radiografia torácica com edema pulmonar. Ecocardiograma com espessamento de septo interventricular (8 mm) e SAM."
+    presentation: "Felino, Maine Coon, macho, 4 anos. Apresentação aguda de dispneia e vocalização intensa. Tutor nega histórico prévio de doença.",
+    history: "Animal era assintomático até o episódio. Tutor percebeu que o gato parou de usar a pata traseira esquerda ao mesmo tempo que começou a respirar mal.",
+    exams: "Taquipneia (60 mpm), cianose, membro pélvico esquerdo sem pulso femoral, coxins frios e pálidos. Ritmo de galope (S3). Radiografia com edema pulmonar. Ecocardiograma com septo 8 mm, SAM e trombo em bifurcação aórtica."
   },
   {
     answer: "Displasia Coxofemoral",
-    vignette: "Canino, Pastor Alemão, macho, 10 meses. Tutor relata dificuldade progressiva para levantar, relutância em subir escadas e marcha bamboleante há 2 meses. Ao exame: atrofia muscular em membros pélvicos, dor à extensão e abdução bilateral dos quadris, teste de Ortolani positivo bilateralmente, sinal de Barlow presente. Sem crepitação articular. Radiografia ventrodorsal com subluxação bilateral das cabeças femorais, índice de Norberg 85° e remodelamento acetabular incipiente."
+    presentation: "Canino, Pastor Alemão, macho, 10 meses. Tutor relata dificuldade para levantar, relutância em subir escadas e marcha bamboleante.",
+    history: "Piora progressiva há 2 meses. Crescimento rápido. Pais sem certificação de displasia.",
+    exams: "Atrofia muscular pélvica, dor à extensão e abdução bilateral dos quadris, Ortolani positivo bilateral, Barlow presente. Radiografia ventrodorsal com subluxação bilateral, Norberg 85° e remodelamento acetabular incipiente."
   },
   {
     answer: "Cetose Bovina",
-    vignette: "Bovino, Holandês, fêmea, 4 anos, alta produção leiteira (42 L/dia), DEL 18. Queda progressiva na produção, inapetência seletiva com recusa de concentrado e preferência por volumoso. Ao exame: leve desidratação, rúmen hipomotílico (1 contração/2 minutos), fezes ressecadas e escuras. Hálito com odor adocicado de cetona. Teste de Rothera positivo no leite e na urina. Beta-hidroxibutirato sérico 2,8 mmol/L. Glicemia 38 mg/dL. Condição corporal caiu de 3,5 para 2,5 em duas semanas."
+    presentation: "Bovino, Holandês, fêmea, 4 anos, alta produção (42 L/dia), 18 dias pós-parto. Queda progressiva na produção e inapetência seletiva.",
+    history: "Recusa concentrado mas aceita volumoso. Condição corporal caiu de 3,5 para 2,5 em duas semanas. Sem alteração de fezes inicialmente percebida pelo produtor.",
+    exams: "Leve desidratação, rúmen hipomotílico, fezes escuras. Hálito com odor de cetona. Rothera positivo no leite e urina. Beta-hidroxibutirato 2,8 mmol/L. Glicemia 38 mg/dL."
   },
   {
     answer: "Corpo Estranho Gastrointestinal",
-    vignette: "Canino, SRD, macho, 6 meses, histórico de roer brinquedos e objetos domésticos. Vômitos agudos intermitentes há 48 horas, inicialmente alimentares e depois biliosos. Tentativa de alimentação resulta em vômito projetado minutos depois. Ao exame: desidratação 6%, dor à palpação abdominal cranial, presença de estrutura firme e tubular palpável em região mesogástrica. Radiografia abdominal com dilatação gástrica e de alças de intestino delgado proximais, com padrão de empilhamento sugestivo de obstrução mecânica."
+    presentation: "Canino, SRD, macho, 6 meses. Tutor relata vômitos intermitentes há 48 horas e que o animal não consegue manter alimento.",
+    history: "Histórico de roer brinquedos e objetos domésticos. Vômitos inicialmente alimentares, depois biliosos. Cada tentativa de alimentação resulta em vômito projetado.",
+    exams: "Desidratação 6%, dor abdominal cranial, estrutura firme palpável em mesogástrio. Radiografia com dilatação gástrica e de delgado proximal com padrão de empilhamento sugestivo de obstrução mecânica."
   },
   {
     answer: "Pancreatite Canina",
-    vignette: "Canino, Yorkshire, fêmea castrada, 8 anos, obesa. Vômitos incoercíveis e prostração súbita há 24 horas, após ingestão de restos de churrasco. Posição de prece (membros torácicos estendidos, tronco baixo). Ao exame: temperatura 39,6°C, dor intensa à palpação epigástrica, abdômen tenso. Hemograma com leucocitose e desvio à esquerda. Bioquímica com lipase pancreática específica canina (cPLI) marcadamente elevada, ALT 210 U/L, hipertrigliceridemia. Ultrassonografia com pâncreas hipoecogênico, aumentado de volume e mesentério peripancreático hiperecogênico."
+    presentation: "Canino, Yorkshire, fêmea castrada, 8 anos, obesa. Vômitos incoercíveis e prostração súbita há 24 horas. Animal assume posição de prece.",
+    history: "Ingestão de restos de churrasco no dia anterior. Membros torácicos estendidos, tronco baixo. Sem acesso a lixo ou tóxicos além do relatado.",
+    exams: "Temperatura 39,6°C, dor epigástrica intensa, abdômen tenso. Leucocitose com desvio à esquerda. cPLI marcadamente elevada, ALT 210 U/L, hipertrigliceridemia. US com pâncreas hipoecogênico, aumentado, mesentério peripancreático hiperecogênico."
   },
   {
     answer: "PIF",
-    vignette: "Felino, Abissínio, macho, 10 meses, proveniente de gatil com múltiplos gatos. Febre flutuante e não responsiva a antibióticos há 15 dias, perda de peso e apatia progressiva. Ao exame: temperatura 40,0°C, abdômen distendido com onda líquida positiva, mucosas ictéricas, linfadenomegalia mesentérica. Efusão abdominal viscosa, amarelada, com alta proteína (5,8 g/dL) e relação A/G < 0,4. Teste de Rivalta positivo. Hiperglobulinemia sérica. PCR positivo para coronavírus felino com alta carga viral na efusão."
+    presentation: "Felino, Abissínio, macho, 10 meses, proveniente de gatil. Febre flutuante e não responsiva a antibióticos há 15 dias, perda de peso e apatia.",
+    history: "Gatil com múltiplos gatos. Tratamentos com antibióticos sem resposta. Barriga está aumentando progressivamente.",
+    exams: "Temperatura 40,0°C, abdômen distendido com onda líquida, mucosas ictéricas. Efusão viscosa amarelada com alta proteína (5,8 g/dL) e A/G < 0,4. Rivalta positivo. Hiperglobulinemia. PCR positivo para coronavírus felino com alta carga na efusão."
   },
   {
     answer: "Raiva",
-    vignette: "Canino, SRD, macho, 3 anos, sem vacinação antirrábica, zona rural. Mudança comportamental abrupta há 3 dias: inicialmente se escondendo e recusando alimento, depois evoluiu com agressividade imotivada, tentativas de mordida e salivação abundante. Ao exame: sialorreia intensa, mandíbula caída (paralisia de masseteres), disfagia, olhar fixo, midríase bilateral. Evolui com paresia de membros pélvicos progressiva e incoordenação. Tutor relata contato com morcego hematófago na propriedade há 30 dias."
+    presentation: "Canino, SRD, macho, 3 anos, sem vacinação antirrábica, zona rural. Tutor relata mudança comportamental abrupta há 3 dias com agressividade imotivada.",
+    history: "Inicialmente se escondendo e recusando alimento. Depois evoluiu com tentativas de mordida e salivação abundante. Contato com morcego hematófago na propriedade há 30 dias.",
+    exams: "Sialorreia intensa, mandíbula caída, disfagia, olhar fixo, midríase bilateral. Paralisia de masseteres. Paresia progressiva de membros pélvicos e incoordenação."
   },
   {
     answer: "Tétano Equino",
-    vignette: "Equino, SRD, macho, 5 anos, sem vacinação antitetânica. Ferimento perfurante em casco do membro pélvico direito há 8 dias, tratado apenas com limpeza local. Há 2 dias com rigidez progressiva e dificuldade para se alimentar. Ao exame: cauda em bandeira, orelhas eretas, prolapso de terceira pálpebra bilateral, trismo mandibular, rigidez muscular generalizada com postura de cavalete. Hiperestesia ao toque e ao som. Sudorese profusa. Espasmos musculares intermitentes com estímulos mínimos."
+    presentation: "Equino, SRD, macho, 5 anos, sem vacinação antitetânica. Rigidez progressiva e dificuldade para se alimentar há 2 dias.",
+    history: "Ferimento perfurante em casco há 8 dias, tratado apenas com limpeza local. Sem sutura ou antibioticoterapia sistêmica.",
+    exams: "Cauda em bandeira, orelhas eretas, prolapso de terceira pálpebra bilateral, trismo mandibular, postura de cavalete. Hiperestesia ao toque e som. Sudorese profusa. Espasmos musculares intermitentes com estímulos mínimos."
   },
   {
     answer: "Leptospirose Canina",
-    vignette: "Canino, Beagle, macho, 3 anos, acesso a quintal com presença de roedores, vacinação polivalente atrasada. Anorexia, vômitos e prostração há 3 dias. Tutor relata urina escurecida. Ao exame: temperatura 39,8°C, mucosas ictéricas, dor lombar e renal à palpação, desidratação 7%. Hemograma com leucocitose e trombocitopenia. Bioquímica com ureia 280 mg/dL, creatinina 8,5 mg/dL, bilirrubina total 6,2 mg/dL, ALT 340 U/L, FA 290 U/L. Urinálise com bilirrubinúria, cilindrúria e isostenúria."
+    presentation: "Canino, Beagle, macho, 3 anos. Tutor relata anorexia, vômitos e prostração há 3 dias, com urina escurecida.",
+    history: "Acesso a quintal com presença de roedores. Vacinação polivalente atrasada. Choveu bastante na última semana com alagamento no quintal.",
+    exams: "Temperatura 39,8°C, mucosas ictéricas, dor lombar e renal, desidratação 7%. Leucocitose e trombocitopenia. Ureia 280 mg/dL, creatinina 8,5 mg/dL, bilirrubina 6,2 mg/dL, ALT 340 U/L. Urinálise com bilirrubinúria, cilindrúria e isostenúria."
   },
   {
     answer: "Otite Externa",
-    vignette: "Canino, Cocker Spaniel, fêmea castrada, 5 anos, histórico de otites recorrentes. Tutor relata que o animal sacode a cabeça, coça as orelhas e apresenta odor fétido auricular há 2 semanas. Ao exame: pavilhões auriculares eritematosos e edemaciados, secreção ceruminosa escura e abundante bilateral, dor à palpação da base auricular. Canal auricular estenosado por hiperplasia. Citologia do cerúmen com presença abundante de leveduras (Malassezia pachydermatis) e cocos."
+    presentation: "Canino, Cocker Spaniel, fêmea castrada, 5 anos. Tutor relata que o animal sacode a cabeça, coça as orelhas e há odor fétido auricular há 2 semanas.",
+    history: "Histórico de otites recorrentes. Último tratamento há 4 meses. Piora após banho recente.",
+    exams: "Pavilhões auriculares eritematosos e edemaciados, secreção ceruminosa escura bilateral, dor à palpação da base auricular. Canal estenosado por hiperplasia. Citologia com Malassezia pachydermatis abundante e cocos."
   },
   {
     answer: "Intussuscepção",
-    vignette: "Canino, SRD, fêmea, 4 meses, desverminada há 3 dias. Vômitos e diarreia sanguinolenta (tipo geleia de framboesa) com início abrupto há 12 horas. Tenesmo intenso. Ao exame: desidratação 8%, dor abdominal à palpação com estrutura cilíndrica firme palpável em região mesogástrica direita. Mucosas hipocoradas. Ultrassonografia abdominal com imagem em alvo (target sign) em corte transversal de alça intestinal, com camadas concêntricas alternando ecogenicidade, compatível com invaginação intestinal."
+    presentation: "Canino, SRD, fêmea, 4 meses. Vômitos e diarreia sanguinolenta tipo geleia de framboesa com início abrupto há 12 horas. Tenesmo intenso.",
+    history: "Desverminada há 3 dias. Fezes mudaram de aspecto abruptamente. Animal cada vez mais prostrado.",
+    exams: "Desidratação 8%, dor abdominal com estrutura cilíndrica firme palpável em mesogástrio direito. Mucosas hipocoradas. Ultrassonografia com imagem em alvo (target sign) em corte transversal, camadas concêntricas compatíveis com invaginação intestinal."
   },
   {
     answer: "Anemia Hemolítica Imunomediada",
-    vignette: "Canino, Cocker Spaniel, fêmea, 6 anos. Prostração súbita, mucosas pálidas e ictéricas, urina escurecida desde ontem. Sem histórico de trauma ou ingestão de tóxicos. Ao exame: taquicardia (160 bpm), taquipneia, sopro sistólico funcional, esplenomegalia. Hemograma com anemia severa regenerativa (Ht 12%), esferócitos e autoaglutinação persistente em salina. Reticulocitose marcada. Bilirrubina indireta elevada. Teste de Coombs direto positivo. Plaquetas normais."
+    presentation: "Canino, Cocker Spaniel, fêmea, 6 anos. Prostração súbita, mucosas pálidas e amareladas, urina escurecida desde ontem.",
+    history: "Sem histórico de trauma, ingestão de tóxicos ou medicações recentes. Animal estava saudável até 2 dias atrás.",
+    exams: "Taquicardia (160 bpm), taquipneia, sopro funcional, esplenomegalia. Anemia severa regenerativa (Ht 12%), esferócitos, autoaglutinação persistente em salina. Reticulocitose marcada. Bilirrubina indireta elevada. Coombs direto positivo."
   },
   {
     answer: "Doença do Disco Intervertebral",
-    vignette: "Canino, Dachshund, macho, 5 anos. Início agudo de dor cervicotorácica e relutância ao movimento há 24 horas, evoluindo para paraparesia dos membros pélvicos. Tutor relata episódio após pular do sofá. Ao exame: dor à palpação da coluna toracolombar (T12-L2), propriocepção ausente em membros pélvicos, reflexo patelar exacerbado bilateralmente, reflexo do panículo ausente caudalmente a T13, sensibilidade dolorosa profunda preservada. Radiografia com redução do espaço intervertebral T12-T13 e opacificação do forame."
+    presentation: "Canino, Dachshund, macho, 5 anos. Início agudo de dor e dificuldade para andar com as patas traseiras há 24 horas.",
+    history: "Episódio ocorreu após pular do sofá. Evolução de dor para fraqueza progressiva dos membros pélvicos.",
+    exams: "Dor à palpação toracolombar (T12-L2), propriocepção ausente em pélvicos, patelar exacerbado bilateral, panículo ausente caudal a T13, dor profunda preservada. Radiografia com redução do espaço T12-T13 e opacificação do forame."
   },
   {
     answer: "Hipocalcemia Puerperal Bovina",
-    vignette: "Bovino, Jersey, fêmea, 7 anos, multípara (5ª lactação), alto potencial produtivo. Parto há 18 horas. Encontrada em decúbito esternal com cabeça voltada para o flanco. Ao exame: temperatura 37,2°C (hipotermia), extremidades frias, focinho seco, atonia ruminal, reflexo anal diminuído, pupilas dilatadas. Incapaz de se levantar mesmo com estímulo. FC 80 bpm com bulhas abafadas. Cálcio sérico total 4,2 mg/dL (referência 8,5-10,5). Fósforo sérico reduzido."
+    presentation: "Bovino, Jersey, fêmea, 7 anos, multípara (5ª lactação). Encontrada em decúbito esternal com cabeça voltada para o flanco. Parto há 18 horas.",
+    history: "Alto potencial produtivo. Parto sem intercorrências aparentes. Incapaz de se levantar desde que foi encontrada.",
+    exams: "Temperatura 37,2°C, extremidades frias, focinho seco, atonia ruminal, reflexo anal diminuído, pupilas dilatadas. FC 80 bpm com bulhas abafadas. Cálcio total 4,2 mg/dL (ref 8,5-10,5). Fósforo reduzido."
   },
   {
     answer: "Acidose Ruminal",
-    vignette: "Bovino, Nelore, macho, 2 anos, confinamento, dieta com 85% de concentrado. Encontrado prostrado, anorético e com diarreia aquosa e fétida há 12 horas. Houve erro na formulação da ração com excesso de grãos de milho no dia anterior. Ao exame: temperatura 36,8°C, desidratação 8%, rúmen distendido e atônico, líquido ruminal obtido por sondagem com pH 4,5, coloração leitosa e odor ácido. FC 100 bpm. Hemograma com hemoconcentração. Gasometria com acidose metabólica (pH sanguíneo 7,18, bicarbonato 12 mEq/L)."
+    presentation: "Bovino, Nelore, macho, 2 anos, confinamento. Encontrado prostrado, anorético e com diarreia aquosa e fétida há 12 horas.",
+    history: "Dieta com 85% de concentrado. Erro na formulação da ração com excesso de milho no dia anterior.",
+    exams: "Temperatura 36,8°C, desidratação 8%, rúmen distendido e atônico. Líquido ruminal pH 4,5, coloração leitosa, odor ácido. FC 100 bpm. Hemoconcentração. Gasometria com acidose metabólica (pH 7,18, bicarbonato 12 mEq/L)."
   },
   {
     answer: "Adenite Equina",
-    vignette: "Equino, SRD, fêmea, 2 anos, recém-introduzida em haras há 10 dias. Febre (39,8°C), secreção nasal mucopurulenta bilateral e tosse há 4 dias. Aumento de volume submandibular bilateral, firme e doloroso à palpação. Ao exame: linfonodos submandibulares e retrofaríngeos marcadamente aumentados, disfagia, extensão de cabeça e pescoço, dispneia inspiratória leve por compressão de vias aéreas superiores. Endoscopia com hiperemia e edema de faringe. Aspirado do linfonodo com material purulento espesso. Cultura com isolamento de Streptococcus equi subsp. equi."
+    presentation: "Equino, SRD, fêmea, 2 anos. Febre, secreção nasal mucopurulenta e aumento de volume submandibular doloroso há 4 dias.",
+    history: "Recém-introduzida em haras há 10 dias. Outros equinos do lote com sinais respiratórios leves.",
+    exams: "Linfonodos submandibulares e retrofaríngeos marcadamente aumentados, disfagia, extensão de cabeça, dispneia inspiratória leve. Endoscopia com hiperemia faríngea. Aspirado com pus espesso. Cultura com Streptococcus equi subsp. equi."
   },
   {
     answer: "Asma Felina",
-    vignette: "Felino, Siamês, fêmea castrada, 6 anos, indoor. Episódios recorrentes de tosse seca paroxística e dispneia expiratória há 3 meses, com piora ao contato com produtos de limpeza e areia sanitária perfumada. Ao exame: sibilos expiratórios bilaterais à auscultação, postura ortopneica durante crise, leve esforço abdominal expiratório. Radiografia torácica com padrão bronquial difuso e hiperinsuflação pulmonar com achatamento diafragmático. Hemograma com eosinofilia periférica (1.800/µL). Citologia de lavado broncoalveolar com eosinófilos acima de 20%."
+    presentation: "Felino, Siamês, fêmea castrada, 6 anos, indoor. Episódios recorrentes de tosse seca e dificuldade para respirar há 3 meses.",
+    history: "Piora ao contato com produtos de limpeza e areia sanitária perfumada. Crises intermitentes com períodos assintomáticos.",
+    exams: "Sibilos expiratórios bilaterais, postura ortopneica durante crise. Radiografia com padrão bronquial difuso e hiperinsuflação com achatamento diafragmático. Eosinofilia periférica (1.800/µL). Lavado broncoalveolar com eosinófilos acima de 20%."
   },
   {
     answer: "Linfoma Canino",
-    vignette: "Canino, Rottweiler, macho castrado, 7 anos. Tutor relata aumento de volume em pescoço e axilas percebido há 2 semanas, com perda de apetite recente. Ao exame: linfadenomegalia generalizada (submandibulares, pré-escapulares, axilares, inguinais e poplíteos), consistência firme e indolor, de 3 a 5 vezes o tamanho normal. Fígado e baço palpáveis. Hemograma sem alterações significativas. Citologia aspirativa de linfonodo com população monomórfica de linfoblastos de grande diâmetro, nucléolos proeminentes e alta relação núcleo-citoplasma. Imunofenotipagem: células B."
+    presentation: "Canino, Rottweiler, macho castrado, 7 anos. Tutor relata caroços no pescoço e axilas percebidos há 2 semanas, com perda de apetite recente.",
+    history: "Aumento de volume progressivo e indolor. Animal menos disposto nos últimos dias.",
+    exams: "Linfadenomegalia generalizada (3 a 5x o normal), firme e indolor. Fígado e baço palpáveis. Citologia com população monomórfica de linfoblastos grandes, nucléolos proeminentes. Imunofenotipagem: células B."
   },
   {
     answer: "Osteossarcoma Canino",
-    vignette: "Canino, Rottweiler, macho, 8 anos, porte grande (45 kg). Claudicação progressiva do membro torácico esquerdo há 6 semanas, sem resposta a anti-inflamatórios. Tutor nota aumento de volume na região distal do rádio. Ao exame: tumefação firme, quente e dolorosa na região metafisária distal do rádio esquerdo. Atrofia muscular do membro. Radiografia com lise óssea agressiva, levantamento periosteal (triângulo de Codman) e reação tipo raios de sol na metáfise distal do rádio. Radiografia torácica sem evidência de metástases visíveis. FA sérica elevada."
+    presentation: "Canino, Rottweiler, macho, 8 anos, 45 kg. Claudicação progressiva do membro torácico esquerdo há 6 semanas, sem resposta a anti-inflamatórios.",
+    history: "Tutor nota inchaço na pata dianteira. Piora constante. Animal evita apoiar o membro.",
+    exams: "Tumefação firme, quente e dolorosa na metáfise distal do rádio esquerdo. Atrofia muscular. Radiografia com lise agressiva, triângulo de Codman e reação em raios de sol. Tórax sem metástases visíveis. FA elevada."
   },
   {
     answer: "Esporotricose Felina",
-    vignette: "Felino, SRD, macho inteiro, 4 anos, semi-domiciliado com acesso à rua e histórico de brigas frequentes. Lesões cutâneas ulceradas e crostosas em face (plano nasal e pavilhões auriculares) e membros torácicos há 40 dias, sem resposta a antibioticoterapia empírica. Ao exame: úlceras com bordas elevadas, drenagem de exsudato purulento, linfadenomegalia regional. Lesões em distribuição linfocutânea ascendente no membro. Citologia de imprint corada com Wright revelou presença abundante de estruturas leveduriformes ovaladas intracelulares em macrófagos."
+    presentation: "Felino, SRD, macho inteiro, 4 anos, semi-domiciliado. Lesões ulceradas em face e patas há 40 dias, sem resposta a antibióticos.",
+    history: "Acesso à rua e brigas frequentes com outros gatos. Lesões começaram como nódulos que ulceraram progressivamente.",
+    exams: "Úlceras com bordas elevadas, exsudato purulento, linfadenomegalia regional. Distribuição linfocutânea ascendente. Citologia de imprint com estruturas leveduriformes ovaladas intracelulares em macrófagos."
   },
   {
     answer: "Reticulopericardite Traumática",
-    vignette: "Bovino, mestiço, fêmea, 6 anos, sistema extensivo com acesso a área de descarte de materiais. Anorexia progressiva há 5 dias, queda na produção leiteira, gemidos expiratórios e relutância ao movimento. Ao exame: temperatura 39,5°C, taquicardia (90 bpm) com bulhas abafadas, distensão de jugulares bilateralmente, edema submandibular e de barbela. Dor ao pinçamento de cernelha (prova do bastão positiva). Rúmen hipomotílico. Ultrassonografia torácica com efusão pericárdica e depósitos de fibrina. Hemograma com leucocitose por neutrofilia."
+    presentation: "Bovino, mestiço, fêmea, 6 anos. Anorexia progressiva há 5 dias, queda na produção, gemidos ao respirar e relutância ao movimento.",
+    history: "Sistema extensivo com acesso a área de descarte de materiais (arames, pregos). Sem histórico de imã ruminal.",
+    exams: "Temperatura 39,5°C, taquicardia (90 bpm) com bulhas abafadas, distensão de jugulares, edema submandibular e de barbela. Prova do bastão positiva. Rúmen hipomotílico. US torácica com efusão pericárdica e fibrina. Leucocitose por neutrofilia."
   },
   {
     answer: "Hemangissarcoma Esplênico",
-    vignette: "Canino, Pastor Alemão, fêmea castrada, 11 anos. Colapso agudo durante passeio, com mucosas pálidas e abdômen distendido de início súbito. Tutor relata episódios intermitentes de fraqueza e apatia nos últimos dias que resolviam espontaneamente. Ao exame: FC 160 bpm, pulso fraco, TPC > 3s, mucosas pálidas, abdominocentese com líquido sanguinolento que não coagula. Ht 18%. Ultrassonografia com massa esplênica heterogênea de 8 cm e efusão abdominal ecogênica. Ecocardiograma sem massas em átrio direito neste momento."
+    presentation: "Canino, Pastor Alemão, fêmea castrada, 11 anos. Colapso agudo durante passeio, com mucosas pálidas e barriga que inchou de repente.",
+    history: "Episódios intermitentes de fraqueza nos últimos dias que resolviam sozinhos. Tutor achava que era da idade.",
+    exams: "FC 160 bpm, pulso fraco, TPC > 3s, mucosas pálidas. Abdominocentese com líquido sanguinolento que não coagula. Ht 18%. US com massa esplênica heterogênea de 8 cm e efusão abdominal ecogênica."
   },
   {
     answer: "Dermatofitose",
-    vignette: "Felino, Persa, fêmea, 5 meses, adquirida em pet shop há 3 semanas. Áreas circulares de alopecia em face, pavilhões auriculares e membros anteriores, com margens eritematosas e descamação central. Prurido leve. Outro gato do domicílio começou a apresentar lesões semelhantes, e a tutora relata lesões pruriginosas em seu próprio antebraço. Ao exame: lâmpada de Wood com fluorescência verde-maçã em algumas lesões. Tricograma com esporos artroconídios ao redor dos pelos (padrão ectothrix). Cultura fúngica em DTM positiva com identificação de Microsporum canis."
+    presentation: "Felino, Persa, fêmea, 5 meses, adquirida em pet shop há 3 semanas. Falhas circulares de pelo em face, orelhas e patas.",
+    history: "Outro gato do domicílio com lesões semelhantes. Tutora relata lesões pruriginosas em seu próprio antebraço. Prurido leve no filhote.",
+    exams: "Lâmpada de Wood com fluorescência verde-maçã. Tricograma com esporos artroconídios ao redor dos pelos (ectothrix). Cultura em DTM positiva com Microsporum canis."
   },
   {
     answer: "Rabdomiólise de Esforço Equina",
-    vignette: "Equino, Puro-Sangue Inglês, fêmea, 4 anos, treinamento intensivo. Após exercício vigoroso, apresentou rigidez e dor muscular intensa em região lombar e glúteos, relutância extrema ao movimento e sudorese profusa. Ao exame: musculatura lombar e glútea firme e dolorosa à palpação, taquicardia (60 bpm), taquipneia, mioglobinúria (urina escura marrom-avermelhada). CK sérica 85.000 UI/L (referência até 400). AST 3.200 UI/L. Creatinina discretamente elevada. Histórico de episódio semelhante mais leve há 2 meses."
+    presentation: "Equino, PSI, fêmea, 4 anos, treinamento intensivo. Rigidez e dor muscular intensa em lombo e glúteos após exercício vigoroso, com relutância extrema ao movimento.",
+    history: "Sudorese profusa após o treino. Episódio semelhante mais leve há 2 meses. Animal recusa andar.",
+    exams: "Musculatura lombar e glútea firme e dolorosa. Taquicardia (60 bpm), taquipneia. Mioglobinúria (urina marrom-avermelhada). CK 85.000 UI/L (ref até 400). AST 3.200 UI/L. Creatinina discretamente elevada."
   },
   {
     answer: "Ruptura de Ligamento Cruzado",
-    vignette: "Canino, Labrador, fêmea castrada, 6 anos, 35 kg, sobrepeso. Claudicação aguda do membro pélvico direito após corrida no parque, com apoio em pinça e relutância à extensão completa. Ao exame: efusão articular do joelho direito, gaveta cranial positiva, teste de compressão tibial (thrust tibial) positivo, dor à hiperextensão. Espessamento periarticular medial palpável (buttress sign). Radiografia com efusão articular, deslocamento caudal do coxim gorduroso infrapatelar e osteofitose incipiente em polo patelar."
+    presentation: "Canino, Labrador, fêmea castrada, 6 anos, 35 kg, sobrepeso. Claudicação aguda do membro pélvico direito após corrida no parque.",
+    history: "Apoio em pinça e relutância à extensão completa. Sem histórico de trauma direto. Piora ao tentar andar.",
+    exams: "Efusão articular do joelho direito, gaveta cranial positiva, teste de compressão tibial positivo, dor à hiperextensão. Buttress sign medial. Radiografia com efusão e osteofitose incipiente em polo patelar."
   },
   {
     answer: "Epilepsia Idiopática",
-    vignette: "Canino, Border Collie, macho, 2 anos. Tutor relata três episódios de convulsões tônico-clônicas generalizadas no último mês, cada um durando cerca de 2 minutos, com fase pós-ictal de desorientação, salivação e cegueira transitória por até 30 minutos. Entre os episódios, animal completamente normal. Ao exame: exame neurológico interictal normal, reflexos preservados, propriocepção sem alterações. Hemograma e bioquímica sérica completa (hepática, renal, glicemia, eletrólitos) sem alterações. Ressonância magnética de crânio sem lesões estruturais."
+    presentation: "Canino, Border Collie, macho, 2 anos. Tutor relata três episódios de convulsões generalizadas no último mês, com duração de 2 minutos cada.",
+    history: "Fase pós-ictal com desorientação, salivação e cegueira transitória por até 30 minutos. Entre episódios, animal completamente normal.",
+    exams: "Exame neurológico interictal completamente normal. Hemograma e bioquímica (hepática, renal, glicemia, eletrólitos) sem alterações. Ressonância magnética de crânio sem lesões estruturais."
   },
   {
     answer: "Mastocitoma Canino",
-    vignette: "Canino, Boxer, macho, 7 anos. Tutor relata nódulo cutâneo em região inguinal notado há 1 mês, com flutuações de tamanho. Ao exame: massa cutânea de 4 cm, firme, parcialmente alopécica, com eritema perilesional. Edema e eritema periférico (sinal de Darier positivo à manipulação). Linfonodo inguinal ipsilateral aumentado. Citologia aspirativa com células redondas contendo grânulos metacromáticos abundantes corados com Giemsa. Estadiamento com ultrassonografia abdominal e radiografia torácica sem evidências de metástases."
+    presentation: "Canino, Boxer, macho, 7 anos. Tutor relata nódulo na região da virilha há 1 mês, que muda de tamanho de um dia para o outro.",
+    history: "Massa flutuante com eritema ao redor quando manipulada. Crescimento gradual no último mês.",
+    exams: "Massa cutânea de 4 cm, firme, alopécica, eritema perilesional. Sinal de Darier positivo. Linfonodo inguinal aumentado. Citologia com células redondas contendo grânulos metacromáticos abundantes (Giemsa). Estadiamento sem metástases."
   },
   {
     answer: "Obstrução Esofágica Bovina",
-    vignette: "Bovino, Nelore, fêmea, 3 anos, sistema semi-intensivo com acesso a pomar de manga. Timpanismo agudo e sialorreia intensa de início súbito há 2 horas. Animal inquieto, com extensão de pescoço e tentativas de eructação sem sucesso. Ao exame: distensão severa da fossa paralombar esquerda (timpanismo gasoso), sialorreia abundante, impossibilidade de passagem de sonda esofágica que encontra resistência firme na região cervical do esôfago. Palpação cervical com estrutura firme arredondada palpável no trajeto esofágico à esquerda."
+    presentation: "Bovino, Nelore, fêmea, 3 anos. Timpanismo agudo e sialorreia intensa de início súbito há 2 horas. Animal inquieto.",
+    history: "Sistema semi-intensivo com acesso a pomar de manga. Extensão de pescoço e tentativas de eructação sem sucesso.",
+    exams: "Distensão severa da fossa paralombar esquerda (timpanismo gasoso). Impossibilidade de passagem de sonda esofágica com resistência firme na região cervical. Palpação cervical com estrutura arredondada no trajeto esofágico."
   },
   {
     answer: "Dermatite Atópica Canina",
-    vignette: "Canino, Bulldog Francês, fêmea castrada, 3 anos. Prurido intenso sazonal (piora no verão) em face, axilas, virilhas e espaços interdigitais há 2 anos, com resposta parcial a corticoides. Ao exame: eritema em face ventral, axilas e virilha, hiperpigmentação e liquenificação interdigital, otite eritematosa bilateral. Sem lesões em dorso. Raspado cutâneo negativo para ácaros. Citologia auricular com Malassezia secundária. Dieta de eliminação sem melhora. Histórico familiar com pai atópico. IgE alérgeno-específica elevada para ácaros de poeira domiciliar."
+    presentation: "Canino, Bulldog Francês, fêmea castrada, 3 anos. Prurido intenso em face, axilas, virilha e entre os dedos, piorando no verão, há 2 anos.",
+    history: "Resposta parcial a corticoides. Otites recorrentes. Dieta de eliminação sem melhora. Pai com histórico de atopia.",
+    exams: "Eritema ventral, axilar e inguinal, hiperpigmentação e liquenificação interdigital, otite eritematosa bilateral. Raspado negativo para ácaros. Malassezia secundária em ouvido. IgE alérgeno-específica elevada para ácaros de poeira."
   },
   {
     answer: "Linfoma Felino",
-    vignette: "Felino, SRD, macho castrado, 12 anos. Vômitos crônicos intermitentes há 2 meses com perda de peso progressiva (de 5,5 para 3,8 kg). Apetite reduzido e episódios alternados de diarreia e constipação. Ao exame: alças intestinais espessadas à palpação, massa mesentérica palpável em região mesogástrica. Ultrassonografia com espessamento difuso de parede intestinal (perda da estratificação em camadas) e linfadenomegalia mesentérica. Biópsia intestinal endoscópica com infiltrado difuso de linfócitos monoclonais em lâmina própria. Imunohistoquímica compatível com linfoma alimentar de células T de baixo grau."
+    presentation: "Felino, SRD, macho castrado, 12 anos. Vômitos crônicos intermitentes há 2 meses com perda de peso progressiva.",
+    history: "Apetite reduzido, alternância de diarreia e constipação. Peso caiu de 5,5 para 3,8 kg. Sem resposta a tratamentos empíricos.",
+    exams: "Alças intestinais espessadas, massa mesentérica palpável. US com espessamento difuso de parede intestinal com perda de estratificação e linfadenomegalia mesentérica. Biópsia com linfócitos monoclonais. Imunohistoquímica: linfoma T alimentar de baixo grau."
   },
   {
     answer: "Anaplasmose Bovina",
-    vignette: "Bovino, Holandês, fêmea, 4 anos, região com histórico de carrapatos. Anorexia, queda na produção leiteira e icterícia progressiva há 4 dias. Ao exame: temperatura 40,8°C, mucosas marcadamente ictéricas e pálidas, taquicardia (96 bpm), taquipneia, desidratação moderada. Fezes normais, sem hemoglobinúria (urina amarelo-escura, não avermelhada). Hemograma com anemia severa (Ht 16%) sem reticulocitose adequada. Esfregaço sanguíneo com corpúsculos basofílicos marginais intra-eritrocitários. Bilirrubina indireta elevada."
+    presentation: "Bovino, Holandês, fêmea, 4 anos. Anorexia, queda na produção e amarelamento progressivo há 4 dias.",
+    history: "Região com histórico de carrapatos. Sem hemoglobinúria (diferente de outros animais que adoeceram antes na fazenda).",
+    exams: "Temperatura 40,8°C, mucosas ictéricas e pálidas, taquicardia (96 bpm). Urina amarelo-escura sem ser avermelhada. Anemia severa (Ht 16%) sem reticulocitose adequada. Esfregaço com corpúsculos basofílicos marginais intra-eritrocitários. Bilirrubina indireta elevada."
   },
   {
     answer: "Diabetes Mellitus Felina",
-    vignette: "Felino, Persa, macho castrado, 11 anos, obeso (8,2 kg). Poliúria, polidipsia e perda de peso progressiva há 4 semanas. Tutor relata que a caixa de areia precisa ser trocada com muito mais frequência. Ao exame: desidratação leve, plantigradismo bilateral (apoio sobre os jarretes), hepatomegalia. Glicemia 420 mg/dL. Frutosamina 600 µmol/L. Urinálise com glicosúria (4+) e cetonúria leve (+). Triglicerídeos 380 mg/dL. Sem acidose metabólica na gasometria."
+    presentation: "Felino, Persa, macho castrado, 11 anos, obeso (8,2 kg). Tutor relata que o gato urina demais e a caixa de areia enche muito rápido. Emagrecendo.",
+    history: "Poliúria e polidipsia há 4 semanas. Perda de peso apesar de comer normalmente. Tutor percebeu que o gato anda de forma estranha, apoiando nos jarretes.",
+    exams: "Desidratação leve, plantigradismo bilateral, hepatomegalia. Glicemia 420 mg/dL. Frutosamina 600 µmol/L. Glicosúria 4+, cetonúria leve. Triglicerídeos 380 mg/dL. Sem acidose."
   },
   {
     answer: "Miastenia Gravis",
-    vignette: "Canino, Golden Retriever, fêmea, 4 anos. Fraqueza muscular progressiva que piora com o exercício e melhora com o repouso. Regurgitação pós-prandial frequente. Ao exame: fraqueza dos membros que se acentua após caminhada curta, ventroflexão cervical intermitente, reflexo palpebral fatigável (fechamento incompleto após estímulos repetidos). Radiografia torácica com megaesôfago e massa mediastínica cranial sugestiva de timoma. Teste com edrofônio (Tensilon) com melhora dramática e transitória da força muscular. Anticorpos anti-receptor de acetilcolina positivos."
+    presentation: "Canino, Golden Retriever, fêmea, 4 anos. Fraqueza muscular que piora com exercício e melhora com repouso. Regurgitação frequente após comer.",
+    history: "Tutor nota que o animal cansa rápido durante passeios e não consegue manter os olhos abertos. Regurgitação pós-prandial piorou nas últimas semanas.",
+    exams: "Fraqueza que se acentua após caminhada curta, reflexo palpebral fatigável. Radiografia com megaesôfago e massa mediastínica cranial. Teste com edrofônio com melhora dramática e transitória. Anticorpos anti-receptor de acetilcolina positivos."
   },
   {
     answer: "Pênfigo Foliáceo",
-    vignette: "Canino, Akita, macho, 5 anos. Lesões cutâneas pustulares e crostosas iniciadas em plano nasal e pavilhões auriculares há 6 semanas, com progressão para coxins plantares e região periocular. Sem resposta a antibioticoterapia. Ao exame: crostas espessas e aderentes em plano nasal, bordas auriculares e coxins (hiperqueratose e fissuras), pústulas flácidas coalescentes em abdômen ventral. Prurido leve. Citologia de pústula intacta com acantócitos (queratinócitos arredondados livres) e neutrófilos. Histopatologia com clivagem subcorneal e acantólise. Sem bactérias na cultura."
+    presentation: "Canino, Akita, macho, 5 anos. Lesões com crostas em focinho, orelhas e almofadas plantares há 6 semanas, sem resposta a antibióticos.",
+    history: "Pústulas e crostas que começaram no nariz e progrediram para orelhas, coxins e abdômen. Prurido leve. Sem melhora com cefalexina.",
+    exams: "Crostas espessas em plano nasal e bordas auriculares, hiperqueratose e fissuras em coxins, pústulas flácidas abdominais. Citologia de pústula com acantócitos e neutrófilos. Histopatologia com clivagem subcorneal e acantólise. Cultura sem bactérias."
   },
   {
     answer: "Traqueobronquite Infecciosa Canina",
-    vignette: "Canino, SRD, macho, 5 meses, retornado de hospedagem há 5 dias. Tosse seca, alta e paroxística tipo \"grasno de ganso\", provocada por palpação traqueal e excitação. Animal alerta e com apetite preservado. Ao exame: temperatura 38,7°C, reflexo de tosse positivo à palpação traqueal, auscultação pulmonar limpa sem crepitação. Sem secreção nasal. Mucosas normocoradas. Demais parâmetros normais. Hemograma sem alterações significativas. Outros cães da hospedagem apresentam sinais semelhantes."
+    presentation: "Canino, SRD, macho, 5 meses. Tosse seca, alta e paroxística há 5 dias. Animal alerta e com apetite preservado.",
+    history: "Retornado de hospedagem há 5 dias. Tosse provocada por excitação e toque no pescoço. Outros cães da hospedagem com sinais semelhantes.",
+    exams: "Temperatura 38,7°C, reflexo de tosse positivo à palpação traqueal, auscultação pulmonar limpa. Sem secreção nasal. Mucosas normocoradas. Hemograma sem alterações."
   },
 ];
 
@@ -325,9 +433,10 @@ function shuffleArray(arr) {
 
 const MAX_ATTEMPTS = 6;
 const CASES_PER_GAME = 10;
+const START_POINTS = 5;
 
 /* ─── COMPONENT ─── */
-export default function VetDordle() {
+export default function VetDoctordle() {
   const [screen, setScreen] = useState("menu");
   const [cases, setCases] = useState([]);
   const [caseIdx, setCaseIdx] = useState(0);
@@ -336,6 +445,9 @@ export default function VetDordle() {
   const [solved, setSolved] = useState(false);
   const [failed, setFailed] = useState(false);
   const [score, setScore] = useState(0);
+  const [casePoints, setCasePoints] = useState(START_POINTS);
+  const [showHistory, setShowHistory] = useState(false);
+  const [showExams, setShowExams] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [animRow, setAnimRow] = useState(-1);
   const inputRef = useRef(null);
@@ -359,8 +471,23 @@ export default function VetDordle() {
     setSolved(false);
     setFailed(false);
     setScore(0);
+    setCasePoints(START_POINTS);
+    setShowHistory(false);
+    setShowExams(false);
     setGuess("");
     setScreen("playing");
+  }
+
+  function requestHistory() {
+    if (showHistory || solved || failed) return;
+    setShowHistory(true);
+    setCasePoints(p => Math.max(p - 1, 0));
+  }
+
+  function requestExams() {
+    if (showExams || solved || failed) return;
+    setShowExams(true);
+    setCasePoints(p => Math.max(p - 1, 0));
   }
 
   function submitGuess() {
@@ -377,9 +504,12 @@ export default function VetDordle() {
     setTimeout(() => setAnimRow(-1), 800);
     if (isCorrect) {
       setSolved(true);
-      setScore(prev => prev + Math.max(MAX_ATTEMPTS - newAttempts.length + 1, 1));
-    } else if (newAttempts.length >= MAX_ATTEMPTS) {
-      setFailed(true);
+      setScore(prev => prev + casePoints);
+    } else {
+      setCasePoints(p => Math.max(p - 1, 0));
+      if (newAttempts.length >= MAX_ATTEMPTS) {
+        setFailed(true);
+      }
     }
   }
 
@@ -389,6 +519,9 @@ export default function VetDordle() {
       setAttempts([]);
       setSolved(false);
       setFailed(false);
+      setCasePoints(START_POINTS);
+      setShowHistory(false);
+      setShowExams(false);
       setGuess("");
     } else {
       setScreen("results");
@@ -401,7 +534,8 @@ export default function VetDordle() {
         .slice(0, 6)
     : [];
 
-  const pct = cases.length ? score / (cases.length * MAX_ATTEMPTS) : 0;
+  const maxScore = cases.length * START_POINTS;
+  const pct = maxScore > 0 ? score / maxScore : 0;
 
   return (
     <div style={S.root}>
@@ -414,7 +548,7 @@ export default function VetDordle() {
           <div style={S.logo}>
             <span style={{ fontSize: 28 }}>🩺</span>
             <div>
-              <h1 style={S.h1}>VetDordle</h1>
+              <h1 style={S.h1}>VetDoctordle</h1>
               <p style={S.sub}>DIAGNÓSTICO VETERINÁRIO</p>
             </div>
           </div>
@@ -426,11 +560,13 @@ export default function VetDordle() {
           <div style={{ animation: "fu .5s ease" }}>
             <div style={S.card}>
               <p style={S.desc}>
-                Leia o caso clínico completo e tente acertar o diagnóstico.
-                A cada tentativa você recebe feedback em 5 categorias, igual ao Wordle:
-                verde se a categoria combina com a resposta, vermelho se não combina.
-                Use esse feedback para refinar suas próximas tentativas.
-                São {CASES.length} casos no banco, com 10 sorteados a cada rodada.
+                Cada caso começa com o sinalamento e a queixa principal.
+                Acerte de primeira e ganhe 5 pontos. Cada erro custa 1 ponto.
+                Você pode solicitar anamnese ou exames complementares para
+                refinar seu diagnóstico, mas cada um custa 1 ponto.
+                O feedback estilo Wordle mostra se espécie, sistema, etiologia,
+                curso e faixa etária combinam com a resposta.
+                São {CASES.length} casos no banco, 10 sorteados por rodada.
               </p>
               <div style={S.catRow}>
                 {CATEGORIES.map((c, i) => (
@@ -442,7 +578,7 @@ export default function VetDordle() {
                 <div style={S.legendItem}><div style={{ ...S.legendDot, background: "#ef4444" }} /><span style={{ fontSize: 13, color: "#d1d5db" }}>Não combina</span></div>
               </div>
               <div style={S.numRow}>
-                {[{ n: "6", l: "tentativas" }, { n: "5", l: "categorias" }, { n: "10", l: "casos/rodada" }].map((s, i) => (
+                {[{ n: "5", l: "pts iniciais" }, { n: "−1", l: "por erro/pedido" }, { n: "10", l: "casos/rodada" }].map((s, i) => (
                   <div key={i} style={S.numBox}><div style={S.numN}>{s.n}</div><div style={S.numL}>{s.l}</div></div>
                 ))}
               </div>
@@ -454,16 +590,66 @@ export default function VetDordle() {
         {/* ── PLAYING ── */}
         {screen === "playing" && currentCase && (
           <div style={{ animation: "fu .4s ease" }}>
+            {/* Progress */}
             <div style={S.progRow}>
               <span style={S.progLbl}>Caso {caseIdx + 1}/{cases.length}</span>
               <div style={S.progBar}><div style={{ ...S.progFill, width: `${(caseIdx / cases.length) * 100}%` }} /></div>
+              <div style={{
+                fontSize: 13, fontWeight: 700, padding: "4px 12px", borderRadius: 8,
+                background: casePoints > 3 ? "rgba(34,197,94,0.1)" : casePoints > 1 ? "rgba(234,179,8,0.1)" : "rgba(239,68,68,0.1)",
+                color: casePoints > 3 ? "#22c55e" : casePoints > 1 ? "#eab308" : "#ef4444",
+              }}>
+                {casePoints} pts possíveis
+              </div>
             </div>
 
-            {/* Vignette */}
+            {/* Presentation (always visible) */}
             <div style={S.vig}>
-              <div style={S.vigH}><span style={{ fontSize: 16 }}>📋</span><span style={S.vigT}>Caso Clínico</span></div>
-              <p style={S.vigP}>{currentCase.vignette}</p>
+              <div style={S.vigH}><span style={{ fontSize: 16 }}>🐾</span><span style={S.vigT}>Sinalamento e Queixa</span></div>
+              <p style={S.vigP}>{currentCase.presentation}</p>
             </div>
+
+            {/* Action buttons */}
+            {!solved && !failed && (
+              <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+                <button
+                  onClick={requestHistory}
+                  disabled={showHistory}
+                  style={{
+                    ...S.actionBtn,
+                    opacity: showHistory ? 0.4 : 1,
+                    cursor: showHistory ? "default" : "pointer",
+                  }}>
+                  📋 {showHistory ? "Anamnese revelada" : "Solicitar Anamnese (−1 pt)"}
+                </button>
+                <button
+                  onClick={requestExams}
+                  disabled={showExams}
+                  style={{
+                    ...S.actionBtn,
+                    opacity: showExams ? 0.4 : 1,
+                    cursor: showExams ? "default" : "pointer",
+                  }}>
+                  🔬 {showExams ? "Exames revelados" : "Solicitar Exames (−1 pt)"}
+                </button>
+              </div>
+            )}
+
+            {/* History (if requested) */}
+            {showHistory && (
+              <div style={{ ...S.vig, borderColor: "rgba(234,179,8,0.15)", animation: "fu .4s ease" }}>
+                <div style={S.vigH}><span style={{ fontSize: 16 }}>📋</span><span style={{ ...S.vigT, color: "#eab308" }}>Anamnese</span></div>
+                <p style={S.vigP}>{currentCase.history}</p>
+              </div>
+            )}
+
+            {/* Exams (if requested) */}
+            {showExams && (
+              <div style={{ ...S.vig, borderColor: "rgba(168,85,247,0.15)", animation: "fu .4s ease" }}>
+                <div style={S.vigH}><span style={{ fontSize: 16 }}>🔬</span><span style={{ ...S.vigT, color: "#a855f7" }}>Exame Físico e Complementares</span></div>
+                <p style={S.vigP}>{currentCase.exams}</p>
+              </div>
+            )}
 
             {/* Grid */}
             {attempts.length > 0 && (
@@ -532,8 +718,12 @@ export default function VetDordle() {
               <div style={{ ...S.resCard, borderColor: "rgba(34,197,94,0.3)", background: "rgba(34,197,94,0.06)" }}>
                 <div style={{ fontSize: 40 }}>🎉</div>
                 <h3 style={{ color: "#22c55e", fontSize: 20, margin: "8px 0 4px", fontWeight: 700 }}>Diagnóstico Correto!</h3>
-                <p style={{ color: "#9ca3af", fontSize: 14 }}>Acertou na tentativa {attempts.length} de {MAX_ATTEMPTS}</p>
-                <p style={{ color: "#22c55e", fontSize: 24, fontWeight: 800, margin: "8px 0 16px" }}>+{Math.max(MAX_ATTEMPTS - attempts.length + 1, 1)} pts</p>
+                <p style={{ color: "#9ca3af", fontSize: 14 }}>
+                  {currentCase.answer} — tentativa {attempts.length}
+                  {showHistory && " · anamnese solicitada"}
+                  {showExams && " · exames solicitados"}
+                </p>
+                <p style={{ color: "#22c55e", fontSize: 24, fontWeight: 800, margin: "8px 0 16px" }}>+{casePoints} pts</p>
                 <button onClick={nextCase} style={S.btnG}>{caseIdx + 1 < cases.length ? "Próximo Caso →" : "Ver Resultado"}</button>
               </div>
             )}
@@ -549,6 +739,9 @@ export default function VetDordle() {
                     {CATEGORIES.map((c, i) => <span key={i} style={S.ansTag}>{c.icon} {answerData[c.key]}</span>)}
                   </div>
                 )}
+                {/* Show all sections on failure */}
+                {!showHistory && <p style={{ color: "#6b7280", fontSize: 13, marginTop: 12 }}>📋 Anamnese: {currentCase.history}</p>}
+                {!showExams && <p style={{ color: "#6b7280", fontSize: 13, marginTop: 8 }}>🔬 Exames: {currentCase.exams}</p>}
                 <button onClick={nextCase} style={{ ...S.btnG, background: "rgba(255,255,255,0.08)", boxShadow: "none", marginTop: 16 }}>
                   {caseIdx + 1 < cases.length ? "Próximo Caso →" : "Ver Resultado"}
                 </button>
@@ -563,20 +756,22 @@ export default function VetDordle() {
             <div style={S.card}>
               <div style={{ fontSize: 56, marginBottom: 8 }}>{pct > 0.6 ? "🏆" : pct > 0.3 ? "🎯" : "📚"}</div>
               <h2 style={S.resT}>Resultado Final</h2>
-              <div style={S.resSc}>{score}<span style={S.resMx}> / {cases.length * MAX_ATTEMPTS}</span></div>
+              <div style={S.resSc}>{score}<span style={S.resMx}> / {maxScore}</span></div>
               <p style={S.resMsg}>
-                {pct > 0.6
-                  ? "Raciocínio clínico exemplar. Sua capacidade de diagnóstico diferencial está refinada."
-                  : pct > 0.3
-                  ? "Bom desempenho. Revisando os sistemas e etiologias, o diferencial fica mais rápido."
-                  : "Continue treinando. A prática com casos clínicos é o que consolida o raciocínio semiológico."}
+                {pct > 0.7
+                  ? "Diagnóstico clínico de alto nível. Você identifica padrões com pouquíssimas informações."
+                  : pct > 0.4
+                  ? "Bom raciocínio clínico. Tente depender menos dos exames complementares e mais da apresentação inicial."
+                  : pct > 0.2
+                  ? "Resultado sólido. Pratique a formulação de diferenciais já no primeiro contato com o caso."
+                  : "Continue treinando. A prática com casos clínicos refina o olhar semiológico."}
               </p>
               <button onClick={startGame} style={S.btnG}>Jogar Novamente</button>
             </div>
           </div>
         )}
 
-        <footer style={S.foot}>VetDordle — Jogo educativo de diagnóstico veterinário</footer>
+        <footer style={S.foot}>VetDoctordle — Jogo educativo de diagnóstico veterinário</footer>
       </div>
 
       <style>{`
@@ -598,11 +793,11 @@ const S = {
   container: { position: "relative", zIndex: 1, maxWidth: 760, margin: "0 auto", padding: "20px 16px" },
   header: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24 },
   logo: { display: "inline-flex", alignItems: "center", gap: 10, background: "linear-gradient(135deg,rgba(34,197,94,.08),rgba(16,185,129,.04))", border: "1px solid rgba(34,197,94,.15)", borderRadius: 14, padding: "10px 20px" },
-  h1: { fontSize: 24, fontWeight: 800, margin: 0, letterSpacing: -.5, background: "linear-gradient(135deg,#22c55e,#10b981)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" },
+  h1: { fontSize: 22, fontWeight: 800, margin: 0, letterSpacing: -.5, background: "linear-gradient(135deg,#22c55e,#10b981)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" },
   sub: { margin: 0, fontSize: 9, color: "#6b7280", letterSpacing: 2 },
   pts: { fontSize: 14, fontWeight: 700, color: "#22c55e", background: "rgba(34,197,94,.1)", padding: "6px 16px", borderRadius: 10 },
   card: { background: "rgba(255,255,255,.025)", border: "1px solid rgba(255,255,255,.05)", borderRadius: 20, padding: "36px 28px", textAlign: "center" },
-  desc: { fontSize: 16, lineHeight: 1.7, color: "#9ca3af", marginBottom: 24, textAlign: "left" },
+  desc: { fontSize: 15, lineHeight: 1.7, color: "#9ca3af", marginBottom: 24, textAlign: "left" },
   catRow: { display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center", marginBottom: 20 },
   catChip: { display: "flex", alignItems: "center", gap: 6, padding: "6px 14px", borderRadius: 10, background: "rgba(34,197,94,.06)", border: "1px solid rgba(34,197,94,.1)", color: "#d1d5db", fontSize: 13 },
   legendRow: { display: "flex", gap: 16, justifyContent: "center", marginBottom: 24 },
@@ -613,15 +808,20 @@ const S = {
   numN: { fontSize: 26, fontWeight: 800, color: "#22c55e" },
   numL: { fontSize: 11, color: "#6b7280", marginTop: 2 },
   btnG: { background: "linear-gradient(135deg,#22c55e,#16a34a)", color: "#fff", border: "none", borderRadius: 14, padding: "14px 44px", fontSize: 17, fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 24px rgba(34,197,94,.25)" },
-  progRow: { display: "flex", alignItems: "center", gap: 12, marginBottom: 16 },
+  progRow: { display: "flex", alignItems: "center", gap: 12, marginBottom: 16, flexWrap: "wrap" },
   progLbl: { fontSize: 13, color: "#6b7280", whiteSpace: "nowrap" },
-  progBar: { flex: 1, height: 4, background: "rgba(255,255,255,.05)", borderRadius: 4 },
+  progBar: { flex: 1, height: 4, background: "rgba(255,255,255,.05)", borderRadius: 4, minWidth: 60 },
   progFill: { height: "100%", borderRadius: 4, background: "linear-gradient(90deg,#22c55e,#10b981)", transition: "width .5s" },
-  vig: { background: "rgba(255,255,255,.03)", border: "1px solid rgba(255,255,255,.06)", borderRadius: 16, padding: "20px 22px", marginBottom: 20 },
+  vig: { background: "rgba(255,255,255,.03)", border: "1px solid rgba(255,255,255,.06)", borderRadius: 16, padding: "20px 22px", marginBottom: 16 },
   vigH: { display: "flex", alignItems: "center", gap: 8, marginBottom: 12 },
   vigT: { fontSize: 13, fontWeight: 700, color: "#22c55e", textTransform: "uppercase", letterSpacing: 1 },
   vigP: { fontSize: 15, lineHeight: 1.8, color: "#d1d5db", margin: 0, textAlign: "left" },
-  grid: { display: "flex", flexDirection: "column", gap: 6 },
+  actionBtn: {
+    flex: 1, padding: "12px 8px", background: "rgba(255,255,255,.04)", border: "1px solid rgba(255,255,255,.08)",
+    borderRadius: 12, color: "#d1d5db", fontSize: 13, fontWeight: 500, cursor: "pointer",
+    transition: "all .2s", textAlign: "center",
+  },
+  grid: { display: "flex", flexDirection: "column", gap: 6, marginTop: 8 },
   ghRow: { display: "flex", gap: 6, padding: "0 4px", marginBottom: 4 },
   ghCell: { flex: 1, textAlign: "center", fontSize: 12, color: "#6b7280", padding: "4px 0" },
   gRow: { display: "flex", gap: 6, padding: "8px 4px", borderRadius: 12, alignItems: "center" },
@@ -631,8 +831,7 @@ const S = {
   inp: { width: "100%", padding: "14px 16px", background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.08)", borderRadius: 12, color: "#e8e6e3", fontSize: 15, boxSizing: "border-box" },
   btnS: { padding: "14px 24px", background: "linear-gradient(135deg,#22c55e,#16a34a)", border: "none", borderRadius: 12, color: "#fff", fontWeight: 700, fontSize: 14, cursor: "pointer", boxShadow: "0 2px 12px rgba(34,197,94,.2)", whiteSpace: "nowrap" },
   sugBox: { position: "absolute", top: "100%", left: 0, right: 80, marginTop: 4, zIndex: 10, background: "#1a1f2e", border: "1px solid rgba(255,255,255,.1)", borderRadius: 12, overflow: "hidden", boxShadow: "0 8px 32px rgba(0,0,0,.4)" },
-  sugI: { padding: "10px 16px", cursor: "pointer", fontSize: 14, display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,.03)", transition: "background .15s" },
-  sugM: { fontSize: 11, color: "#6b7280" },
+  sugI: { padding: "10px 16px", cursor: "pointer", fontSize: 14, borderBottom: "1px solid rgba(255,255,255,.03)", transition: "background .15s" },
   attL: { marginTop: 8, fontSize: 12, color: "#6b7280" },
   resCard: { border: "1px solid", borderRadius: 16, padding: 28, textAlign: "center", marginTop: 16, animation: "fu .5s ease" },
   ansTags: { display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "center", margin: "12px 0" },
