@@ -63,6 +63,14 @@ const ALL_DIAGNOSES = [
   { name: "Hemangissarcoma Esplênico", species: "canino", system: "hematológico", etiology: "neoplásica", course: "agudo", age: "idoso" },
   { name: "Esporotricose Felina", species: "felino", system: "tegumentar", etiology: "infecciosa", course: "crônico", age: "adulto" },
   { name: "Dermatofitose", species: "felino", system: "tegumentar", etiology: "infecciosa", course: "crônico", age: "jovem" },
+  { name: "Hipoadrenocorticismo Canino", species: "canino", system: "endócrino", etiology: "imunomediada", course: "agudo", age: "adulto" },
+  { name: "Urolitíase Canina", species: "canino", system: "urinário", etiology: "metabólica", course: "crônico", age: "adulto" },
+  { name: "Colangiohepatite Felina", species: "felino", system: "hepático", etiology: "infecciosa", course: "crônico", age: "adulto" },
+  { name: "Cistite Idiopática Felina", species: "felino", system: "urinário", etiology: "imunomediada", course: "agudo", age: "adulto" },
+  { name: "Toxoplasmose Felina", species: "felino", system: "multissistêmico", etiology: "infecciosa", course: "agudo", age: "adulto" },
+  { name: "Síndrome Braquicefálica Canina", species: "canino", system: "respiratório", etiology: "mecânica", course: "crônico", age: "adulto" },
+  { name: "Pneumonia por Aspiração Canina", species: "canino", system: "respiratório", etiology: "infecciosa", course: "agudo", age: "adulto" },
+  { name: "Hemoabdômen Traumático Canino", species: "canino", system: "hematológico", etiology: "mecânica", course: "agudo", age: "adulto" },
 ];
 
 /* ─── CLINICAL CASES ─── */
@@ -444,6 +452,111 @@ const CASES = [
     history: "Retornado de hospedagem há 5 dias. Tosse provocada por excitação e toque no pescoço. Outros cães da hospedagem com sinais semelhantes.",
     physicalExam: "Temperatura 38,7°C, reflexo de tosse positivo à palpação traqueal, auscultação pulmonar limpa. Sem secreção nasal. Mucosas normocoradas.",
     complementaryExams: "Hemograma sem alterações. Diagnóstico clínico-epidemiológico (histórico de aglomeração em canil ou pet shop)."
+  },
+  {
+    answer: "Hipotireoidismo Canino",
+    presentation: "Canino, Labrador, fêmea castrada, 7 anos. Tutor relata aumento de peso progressivo sem mudança na dieta, letargia intensa e pelo ressecado.",
+    history: "Intolerância ao frio, pelagem mais opaca e fina nos últimos 6 meses. Sem poliúria ou polidipsia. Sem alteração alimentar.",
+    physicalExam: "Alopecia bilateral simétrica no tronco, mixedema facial (face trágica), bradicardia (48 bpm), hipotermia leve (37,2°C).",
+    complementaryExams: "T4 total 0,6 µg/dL (ref 1,5-4,0). TSH canino elevado. Hipercolesterolemia. Anemia leve normocítica normocrômica."
+  },
+  {
+    answer: "Megaesôfago",
+    presentation: "Canino, Pastor Alemão, macho, 6 meses. Tutor relata regurgitação de alimento não digerido em forma cilíndrica desde que o filhote começou a comer ração sólida.",
+    history: "Regurgitação logo após a alimentação sem esforço e sem bile. Animal emagreceu apesar de comer bem. Episódio de tosse com aspiração.",
+    physicalExam: "Magreza acentuada, pelagem ruim, sons de fluido à auscultação do esôfago torácico.",
+    complementaryExams: "Radiografia simples com esôfago dilatado preenchido por ar visível em tórax. Esofagografia com bário confirmando megaesôfago difuso. Teste de estimulação com edrofônio negativo."
+  },
+  {
+    answer: "Gastroenterite Hemorrágica",
+    presentation: "Canino, Yorkshire, macho castrado, 4 anos. Diarreia com sangue vivo e vômitos de início súbito há 12 horas. Prostração intensa.",
+    history: "Sem acesso a lixo, tóxicos ou mudança alimentar. Animal estava normal até ontem à noite. Sem contato com cães doentes.",
+    physicalExam: "Desidratação 7%, taquicardia (140 bpm), mucosas levemente hipocoradas, dor abdominal difusa. Fezes tipo geleia de framboesa.",
+    complementaryExams: "Hematócrito 62% (hemoconcentração marcada). Proteínas totais normais. Leucograma normal. Snap Parvovírus negativo. HCT elevado com proteínas preservadas orienta diagnóstico."
+  },
+  {
+    answer: "Hepatite Infecciosa Canina",
+    presentation: "Canino, SRD, macho, 3 meses, vacinação incompleta. Prostração súbita, dor abdominal intensa e vômitos. Tutor nota olhos com coloração azulada.",
+    history: "Adquirido há 20 dias. Apenas uma dose de vacina polivalente. Contato com cão adulto desconhecido no parque há 5 dias.",
+    physicalExam: "Temperatura 40,5°C, dor intensa à palpação do hipocôndrio direito, mucosas levemente ictéricas, opacidade corneana azulada bilateral (uveíte anterior).",
+    complementaryExams: "ALT 1.200 U/L, AST 890 U/L, bilirrubina 3,4 mg/dL. Tempo de protrombina prolongado. Soroneutralização positiva para adenovírus canino tipo 1."
+  },
+  {
+    answer: "Insuficiência Cardíaca Congestiva",
+    presentation: "Canino, Cavalier King Charles Spaniel, macho, 11 anos. Tutor relata tosse persistente à noite, intolerância ao exercício e respiração acelerada nas últimas semanas.",
+    history: "Sopro cardíaco diagnosticado há 2 anos. Piora progressiva da tosse. Episódio de síncope há 3 dias durante passeio.",
+    physicalExam: "Taquicardia (156 bpm), sopro mitral V/VI em ápex esquerdo, crepitação pulmonar bilateral, ascite discreta.",
+    complementaryExams: "Radiografia com cardiomegalia (VHS 12,5) e infiltrado perihilar bilateral. Ecocardiograma com regurgitação mitral severa e fração de encurtamento 20%."
+  },
+  {
+    answer: "Trombocitopenia Imunomediada",
+    presentation: "Canino, Poodle, fêmea, 5 anos. Tutor relata manchas vermelhas na barriga e mucosas, com sangramento nasal espontâneo desde ontem.",
+    history: "Sem trauma. Vacinação polivalente há 3 semanas. Sem histórico de sangramento prévio. Sem anticoagulantes.",
+    physicalExam: "Petéquias e equimoses múltiplas em abdômen, face interna de membros e mucosa oral. Epistaxe ativa. Baço não palpável.",
+    complementaryExams: "Plaquetas 6.000/µL. Restante do hemograma normal. Esfregaço sem agregação plaquetária. Coombs negativo. Anticorpos antiplaquetários positivos."
+  },
+  {
+    answer: "Pancreatite Felina",
+    presentation: "Felino, SRD, fêmea castrada, 7 anos. Tutor relata inapetência há 4 dias, vômitos intermitentes e prostração progressiva.",
+    history: "Sem histórico de dieta hiperlipídica. Dor ao ser manipulada. Perda de peso notada nas últimas semanas. Sem acesso à rua.",
+    physicalExam: "Temperatura 38,2°C, desidratação 6%, dor à palpação abdominal cranial, icterícia leve.",
+    complementaryExams: "fPLI elevada. ALT 180 U/L, bilirrubina 2,1 mg/dL. Ultrassonografia com pâncreas hipoecogênico e mesentério peripancreático hiperecogênico."
+  },
+  {
+    answer: "Hipoadrenocorticismo Canino",
+    presentation: "Canino, Labrador, fêmea, 4 anos. Tutor relata episódios recorrentes de vômito, fraqueza extrema e colapso que melhoram espontaneamente, mas desta vez o animal não recupera.",
+    history: "'Cão de sábado' — crises periódicas que melhoravam com fluidoterapia. Perda de peso progressiva. Diarreia e dor abdominal recorrentes.",
+    physicalExam: "Bradicardia (44 bpm), pulso fraco, hipotermia (36,4°C), desidratação 8%, dor abdominal difusa.",
+    complementaryExams: "Sódio 126 mEq/L, potássio 7,2 mEq/L, relação Na:K < 20. ECG com ondas T apiculadas. Teste de estimulação com ACTH com resposta adrenocortical ausente."
+  },
+  {
+    answer: "Urolitíase Canina",
+    presentation: "Canino, Dálmata, macho inteiro, 5 anos. Tutor relata hematúria, disúria e micções frequentes em pequenos volumes há 1 semana.",
+    history: "Alimentação com ração seca. Episódio anterior há 1 ano com resolução espontânea. Baixa ingestão hídrica.",
+    physicalExam: "Bexiga moderadamente distendida e dolorosa à palpação. Dor lombar. Urina avermelhada coletada no momento da consulta.",
+    complementaryExams: "Urinálise com hematúria 3+, cristais de urato de amônio e pH 6,0. Radiografia com múltiplas urolitíases radiopacas em bexiga. Cultura de urina negativa."
+  },
+  {
+    answer: "Colangiohepatite Felina",
+    presentation: "Felino, Persa, macho castrado, 8 anos. Tutor relata inapetência progressiva há 2 semanas, olhos amarelados e vômitos ocasionais.",
+    history: "Perda de peso gradual. Sem acesso à rua. Febre intermitente percebida ao toque. Alimentação com ração seca premium.",
+    physicalExam: "Icterícia em escleras e mucosas, hepatomegalia com bordas arredondadas, desidratação 5%, temperatura 39,8°C.",
+    complementaryExams: "ALT 420 U/L, FA 890 U/L, GGT 85 U/L, bilirrubina total 5,6 mg/dL. Ultrassonografia com parênquima hepático heterogêneo e ductos biliares dilatados. Citologia hepática com infiltrado neutrofílico e linfocítico."
+  },
+  {
+    answer: "Cistite Idiopática Felina",
+    presentation: "Felino, SRD, macho castrado, 4 anos, indoor. Tutor relata que o gato está urinando fora da caixa de areia em pequenas quantidades com sangue, após mudança de apartamento.",
+    history: "Ambiente novo com outro gato. Estresse evidente. Sem histórico de doença urinária prévia. Alimentação exclusiva com ração seca.",
+    physicalExam: "Bexiga pequena e dolorosa à palpação. Extremidade peniana sem obstrução. Animal vocaliza ao urinar.",
+    complementaryExams: "Urinálise com hematúria e piúria leves, densidade 1.048, ausência de cristais. Cultura negativa. Diagnóstico de exclusão após descarte de urolitíase e infecção bacteriana."
+  },
+  {
+    answer: "Toxoplasmose Felina",
+    presentation: "Felino, SRD, macho inteiro, 3 anos. Tutor relata febre, dificuldade respiratória progressiva e olho vermelho com secreção há 5 dias.",
+    history: "Acesso à rua. Consome carne crua ocasionalmente. Outro gato do domicílio saudável.",
+    physicalExam: "Temperatura 40,2°C, taquipneia, uveíte anterior esquerda com hipópio, icterícia discreta, linfonodos periféricos aumentados.",
+    complementaryExams: "IgG anti-Toxoplasma gondii elevada (1:1024). IgM positivo indicando infecção recente. PCR em líquido broncoalveolar positivo para Toxoplasma gondii."
+  },
+  {
+    answer: "Síndrome Braquicefálica Canina",
+    presentation: "Canino, Bulldog Inglês, macho, 3 anos. Tutor relata roncos intensos, intolerância ao exercício e episódio de desmaio após agitação em dia quente.",
+    history: "Piora progressiva. Cianose transitória ao se excitar. Não consegue brincar por mais de 5 minutos sem ofegar excessivamente.",
+    physicalExam: "Estenose de narina evidente bilateralmente, eversão de tonsilas palatinas, estridores inspiratórios marcados. SatO2 91% em repouso.",
+    complementaryExams: "Rinoscopia com estenose nasal grave. Laringoscopia com palato mole elongado e colapso laríngeo grau II. Radiografia torácica sem alterações parenquimatosas."
+  },
+  {
+    answer: "Pneumonia por Aspiração Canina",
+    presentation: "Canino, Boxer, macho castrado, 6 anos. Tutor relata febre súbita, tosse produtiva e dificuldade respiratória há 2 dias. Animal tem histórico de regurgitação.",
+    history: "Megaesôfago diagnosticado há 1 ano. Piora do padrão respiratório após episódio de regurgitação abundante ontem.",
+    physicalExam: "Temperatura 40,3°C, taquipneia (48 mpm), sons crepitantes em região cranioventral bilateral, mucosas levemente cianóticas.",
+    complementaryExams: "Radiografia com consolidação alveolar cranioventral bilateral característica. Leucocitose com desvio à esquerda (22.000/µL). Cultura de lavado broncoalveolar com flora mista (gram-negativos predominantes)."
+  },
+  {
+    answer: "Hemoabdômen Traumático Canino",
+    presentation: "Canino, SRD, macho, 2 anos. Tutora relata que o animal foi atropelado há 2 horas e está prostrado, sem conseguir se levantar. Abdômen aumentou de volume.",
+    history: "Trauma contuso por veículo. Sem feridas externas significativas visíveis. Distensão abdominal progressiva desde o atropelamento.",
+    physicalExam: "FC 160 bpm, pulso filiforme, TPC > 3s, mucosas pálidas, abdômen distendido e doloroso. Temperatura 36,8°C.",
+    complementaryExams: "Abdominocentese com líquido sanguinolento que não coagula. Ht 18%, lactato 6,8 mmol/L. Ultrassonografia com efusão abdominal ecogênica difusa e laceração esplênica."
   },
 ];
 
